@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html class="light" lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <title>Terms of Service – The Bibliotech</title>
+  <th:block th:replace="~{fragments/nav :: headstyles}"></th:block>
+</head>
+<body class="bg-surface text-on-surface font-body-md antialiased min-h-screen flex flex-col">
+
+<th:block th:replace="~{fragments/nav :: topnav}"></th:block>
+
+<main class="flex-grow pt-[80px] pb-24">
+  <div class="max-w-3xl mx-auto px-margin-mobile md:px-margin-desktop mt-14">
+
+    <div class="mb-10">
+      <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-3">Legal</p>
+      <h1 class="font-headline-xl text-headline-xl text-on-surface mb-3">Terms of Service</h1>
+      <p class="text-on-surface-variant text-sm">Last updated: January 2025</p>
+    </div>
+
+    <div class="flex flex-col gap-10 text-on-surface-variant font-body-md leading-relaxed">
+
+      <section>
+        <h2 class="font-headline-md text-headline-md text-on-surface mb-3">1. Acceptance of Terms</h2>
+        <p>By accessing and using The Bibliotech website and services, you accept and agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our services.</p>
+      </section>
+
+      <section>
+        <h2 class="font-headline-md text-headline-md text-on-surface mb-3">2. Account Registration</h2>
+        <p class="mb-3">To purchase books or access certain features, you must create an account. You agree to:</p>
+        <ul class="list-disc list-inside flex flex-col gap-2 ml-2">
+          <li>Provide accurate, current and complete information during registration</li>
+          <li>Maintain the security of your password and account</li>
+          <li>Accept responsibility for all activities that occur under your account</li>
+          <li>Notify us immediately of any unauthorized use of your account</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="font-headline-md text-headline-md text-on-surface mb-3">3. Orders and Payment</h2>
+        <p class="mb-3">All orders are subject to availability and confirmation. We reserve the right to refuse or cancel any order. Prices are subject to change without notice. Payment must be received in full before an order is processed.</p>
+      </section>
+
+      <section>
+        <h2 class="font-headline-md text-headline-md text-on-surface mb-3">4. Shipping and Delivery</h2>
+        <p class="mb-3">Delivery times are estimates and not guaranteed. The Bibliotech is not responsible for delays caused by customs, postal services, or other factors outside our control. Risk of loss passes to you upon delivery to the carrier.</p>
+      </section>
+
+      <section>
+        <h2 class="font-headline-md text-headline-md text-on-surface mb-3">5. Returns and Refunds</h2>
+        <p class="mb-3">We accept returns within 14 days of delivery for books in their original condition. Rare and antiquarian books are sold as-is and are non-returnable unless significantly not as described. Refunds are processed within 5–10 business days.</p>
+      </section>
+
+      <section>
+        <h2 class="font-headline-md text-headline-md text-on-surface mb-3">6. Intellectual Property</h2>
+        <p>All content on this website, including text, images, and design, is the property of The Bibliotech and is protected by copyright law. You may not reproduce, distribute, or create derivative works without our express written permission.</p>
+      </section>
+
+      <section>
+        <h2 class="font-headline-md text-headline-md text-on-surface mb-3">7. Limitation of Liability</h2>
+        <p>The Bibliotech shall not be liable for any indirect, incidental, special or consequential damages arising from your use of our services. Our total liability shall not exceed the amount you paid for the specific order giving rise to the claim.</p>
+      </section>
+
+      <section>
+        <h2 class="font-headline-md text-headline-md text-on-surface mb-3">8. Contact</h2>
+        <p>If you have any questions about these Terms, please <a th:href="@{/contact}" class="text-on-tertiary-container hover:underline font-semibold">contact us</a>.</p>
+      </section>
+
+    </div>
+  </div>
+</main>
+
+<th:block th:replace="~{fragments/nav :: footer}"></th:block>
+</body>
+</html>

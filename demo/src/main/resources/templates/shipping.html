@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html class="light" lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <title>Shipping Info – The Bibliotech</title>
+  <th:block th:replace="~{fragments/nav :: headstyles}"></th:block>
+</head>
+<body class="bg-surface text-on-surface font-body-md antialiased min-h-screen flex flex-col">
+
+<th:block th:replace="~{fragments/nav :: topnav}"></th:block>
+
+<main class="flex-grow pt-[80px] pb-24">
+  <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop mt-14">
+
+    <div class="max-w-3xl mb-12">
+      <p class="font-label-sm text-label-sm text-on-tertiary-container uppercase tracking-wider mb-3">Delivery</p>
+      <h1 class="font-headline-xl text-headline-xl text-on-surface mb-4">Shipping Information</h1>
+      <p class="font-body-lg text-body-lg text-on-surface-variant">
+        Every order is carefully packaged to ensure your books arrive in perfect condition.
+        Here's everything you need to know about our shipping options.
+      </p>
+    </div>
+
+    <!-- Shipping options cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-14">
+
+      <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-7 flex flex-col gap-3">
+        <span class="material-symbols-outlined text-on-surface-variant" style="font-size:32px">local_shipping</span>
+        <h2 class="font-headline-md text-headline-md text-on-surface">Standard Shipping</h2>
+        <p class="text-on-surface-variant text-sm flex-1">Reliable delivery for everyday orders. Fully tracked from dispatch to your door.</p>
+        <div class="border-t border-outline-variant pt-4 flex flex-col gap-1">
+          <div class="flex justify-between text-sm">
+            <span class="text-on-surface-variant">Delivery time</span>
+            <span class="font-semibold text-on-surface">5–7 business days</span>
+          </div>
+          <div class="flex justify-between text-sm">
+            <span class="text-on-surface-variant">Cost</span>
+            <span class="font-semibold text-on-surface">$4.99</span>
+          </div>
+          <div class="flex justify-between text-sm">
+            <span class="text-on-surface-variant">Free over</span>
+            <span class="font-semibold text-on-surface">$50.00</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-surface-container-lowest border-2 border-on-tertiary-container rounded-xl p-7 flex flex-col gap-3 relative">
+        <div class="absolute top-4 right-4 bg-on-tertiary-container text-on-tertiary font-label-sm text-label-sm px-2 py-1 rounded uppercase tracking-wider text-xs">Popular</div>
+        <span class="material-symbols-outlined text-on-tertiary-container" style="font-size:32px">bolt</span>
+        <h2 class="font-headline-md text-headline-md text-on-surface">Express Shipping</h2>
+        <p class="text-on-surface-variant text-sm flex-1">Need it faster? Express delivery gets your books to you in 2–3 days.</p>
+        <div class="border-t border-outline-variant pt-4 flex flex-col gap-1">
+          <div class="flex justify-between text-sm">
+            <span class="text-on-surface-variant">Delivery time</span>
+            <span class="font-semibold text-on-surface">2–3 business days</span>
+          </div>
+          <div class="flex justify-between text-sm">
+            <span class="text-on-surface-variant">Cost</span>
+            <span class="font-semibold text-on-surface">$9.99</span>
+          </div>
+          <div class="flex justify-between text-sm">
+            <span class="text-on-surface-variant">Free over</span>
+            <span class="font-semibold text-on-surface">$100.00</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-7 flex flex-col gap-3">
+        <span class="material-symbols-outlined text-on-surface-variant" style="font-size:32px">flight</span>
+        <h2 class="font-headline-md text-headline-md text-on-surface">Overnight</h2>
+        <p class="text-on-surface-variant text-sm flex-1">Order by 2pm for guaranteed next business day delivery. Available for most regions.</p>
+        <div class="border-t border-outline-variant pt-4 flex flex-col gap-1">
+          <div class="flex justify-between text-sm">
+            <span class="text-on-surface-variant">Delivery time</span>
+            <span class="font-semibold text-on-surface">Next business day</span>
+          </div>
+          <div class="flex justify-between text-sm">
+            <span class="text-on-surface-variant">Cost</span>
+            <span class="font-semibold text-on-surface">$19.99</span>
+          </div>
+          <div class="flex justify-between text-sm">
+            <span class="text-on-surface-variant">Order by</span>
+            <span class="font-semibold text-on-surface">2:00 PM</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Additional info -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+      <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
+        <h3 class="font-headline-md text-on-surface mb-3 flex items-center gap-2">
+          <span class="material-symbols-outlined text-on-surface-variant" style="font-size:20px">inventory_2</span>
+          Packaging
+        </h3>
+        <p class="text-on-surface-variant text-sm leading-relaxed">All books are wrapped in acid-free tissue and placed in reinforced boxes. Rare and antiquarian books receive additional archival packaging including foam inserts and moisture barriers.</p>
+      </div>
+      <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
+        <h3 class="font-headline-md text-on-surface mb-3 flex items-center gap-2">
+          <span class="material-symbols-outlined text-on-surface-variant" style="font-size:20px">track_changes</span>
+          Tracking
+        </h3>
+        <p class="text-on-surface-variant text-sm leading-relaxed">Every order comes with a tracking number sent to your email once dispatched. You can monitor your delivery in real time through our carrier's tracking portal.</p>
+      </div>
+      <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
+        <h3 class="font-headline-md text-on-surface mb-3 flex items-center gap-2">
+          <span class="material-symbols-outlined text-on-surface-variant" style="font-size:20px">public</span>
+          International Orders
+        </h3>
+        <p class="text-on-surface-variant text-sm leading-relaxed">We ship to over 50 countries. International orders may be subject to customs duties and import taxes which are the responsibility of the recipient. Delivery times vary by destination.</p>
+      </div>
+      <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
+        <h3 class="font-headline-md text-on-surface mb-3 flex items-center gap-2">
+          <span class="material-symbols-outlined text-on-surface-variant" style="font-size:20px">assignment_return</span>
+          Returns
+        </h3>
+        <p class="text-on-surface-variant text-sm leading-relaxed">Not satisfied? Return your order within 14 days for a full refund. Books must be in original condition. Rare and antiquarian items are non-returnable unless significantly not as described.</p>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="text-center">
+      <p class="text-on-surface-variant mb-4">Have a specific shipping question?</p>
+      <a th:href="@{/contact}"
+         class="inline-flex items-center gap-2 bg-primary text-on-primary font-bold px-8 py-3 rounded hover:opacity-90 transition-all">
+        <span class="material-symbols-outlined" style="font-size:18px">support_agent</span>
+        Contact Us
+      </a>
+    </div>
+
+  </div>
+</main>
+
+<th:block th:replace="~{fragments/nav :: footer}"></th:block>
+</body>
+</html>

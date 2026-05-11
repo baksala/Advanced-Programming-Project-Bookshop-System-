@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html class="light" lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <title>About – The Bibliotech</title>
+  <th:block th:replace="~{fragments/nav :: headstyles}"></th:block>
+</head>
+<body class="bg-surface text-on-surface font-body-md antialiased min-h-screen flex flex-col">
+
+<th:block th:replace="~{fragments/nav :: topnav}"></th:block>
+
+<main class="flex-grow pt-[80px] pb-24">
+  <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop mt-14">
+
+    <!-- Hero -->
+    <div class="max-w-3xl mb-16">
+      <p class="font-label-sm text-label-sm text-on-tertiary-container uppercase tracking-wider mb-3">Our Story</p>
+      <h1 class="font-headline-xl text-headline-xl text-on-surface mb-6">About The Bibliotech</h1>
+      <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+        The Bibliotech is a curated independent bookshop dedicated to connecting readers with extraordinary literature —
+        from contemporary fiction to rare antiquarian finds. We believe every book has a reader waiting for it,
+        and every reader has a book that will change their life.
+      </p>
+    </div>
+
+    <!-- Two-column content -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
+      <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-8">
+        <span class="material-symbols-outlined text-on-tertiary-container mb-4 block" style="font-size:32px">menu_book</span>
+        <h2 class="font-headline-md text-headline-md text-on-surface mb-3">Our Collection</h2>
+        <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+          We carefully select every title in our catalog. From bestselling contemporary fiction to
+          out-of-print rarities, first editions, and signed copies — each book is chosen with intention.
+          Our team of passionate readers reviews hundreds of titles to bring you only the finest.
+        </p>
+      </div>
+      <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-8">
+        <span class="material-symbols-outlined text-on-tertiary-container mb-4 block" style="font-size:32px">local_shipping</span>
+        <h2 class="font-headline-md text-headline-md text-on-surface mb-3">Worldwide Shipping</h2>
+        <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+          We ship to over 50 countries. Every order is carefully packaged to protect your books
+          during transit. Rare and antiquarian items receive special archival packaging.
+          Express and overnight options are available for most destinations.
+        </p>
+      </div>
+      <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-8">
+        <span class="material-symbols-outlined text-on-tertiary-container mb-4 block" style="font-size:32px">verified</span>
+        <h2 class="font-headline-md text-headline-md text-on-surface mb-3">Authenticity Guaranteed</h2>
+        <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+          Every rare and antiquarian book is authenticated by our in-house specialists before listing.
+          We provide provenance documentation for first editions and signed copies,
+          ensuring you receive exactly what is described.
+        </p>
+      </div>
+      <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-8">
+        <span class="material-symbols-outlined text-on-tertiary-container mb-4 block" style="font-size:32px">support_agent</span>
+        <h2 class="font-headline-md text-headline-md text-on-surface mb-3">Expert Support</h2>
+        <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+          Our team of bibliophiles is available to help you find exactly what you're looking for.
+          Whether you need a recommendation, have a question about a rare edition, or need help
+          with your order — we're here for you.
+        </p>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="bg-tertiary-container rounded-xl p-10 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div>
+        <h2 class="font-headline-lg text-headline-lg text-on-primary mb-2">Ready to explore?</h2>
+        <p class="text-on-primary-container">Browse our curated catalog of fine literature.</p>
+      </div>
+      <div class="flex gap-4">
+        <a th:href="@{/catalog}"
+           class="bg-[#c86a47] text-white font-bold px-8 py-3 rounded hover:opacity-90 transition-all shrink-0">
+          Browse Catalog
+        </a>
+        <a th:href="@{/contact}"
+           class="border border-outline-variant text-on-primary font-semibold px-8 py-3 rounded hover:bg-surface-container transition-all shrink-0">
+          Contact Us
+        </a>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<th:block th:replace="~{fragments/nav :: footer}"></th:block>
+</body>
+</html>

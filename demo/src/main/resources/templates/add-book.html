@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html class="light" lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <title>Add New Book – Admin Console</title>
+  <th:block th:replace="~{fragments/nav :: headstyles}"></th:block>
+</head>
+<body class="bg-surface text-on-surface font-body-md antialiased min-h-screen flex">
+
+<th:block th:replace="~{fragments/admin-sidebar :: sidebar('add-book')}"></th:block>
+
+<div class="ml-64 flex-1 p-8">
+  <div class="max-w-2xl">
+
+    <div class="mb-8">
+      <a th:href="@{/admin/dashboard}" class="text-on-surface-variant hover:text-on-surface text-sm flex items-center gap-1 mb-3 transition-colors">
+        <span class="material-symbols-outlined text-sm">arrow_back</span> Back to Dashboard
+      </a>
+      <h1 class="font-headline-lg text-headline-lg text-on-surface">Add New Book</h1>
+      <p class="text-on-surface-variant mt-1">Add a new title to the catalogue</p>
+    </div>
+
+    <!-- Flash success -->
+    <div th:if="${flashSuccess}" class="mb-6 bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-xl text-sm flex items-center gap-2">
+      <span class="material-symbols-outlined" style="font-size:18px">check_circle</span>
+      <span th:text="${flashSuccess}"></span>
+    </div>
+
+    <form th:action="@{/admin/books}" method="post" enctype="multipart/form-data"
+          th:object="${bookForm}"
+          class="bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm p-8 flex flex-col gap-5">
+      <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+      <!-- Validation error banner — scoped inside th:object -->
+      <div th:if="${#fields.hasAnyErrors()}"
+           class="bg-error-container border border-error text-on-error-container px-4 py-3 rounded-xl text-sm flex items-center gap-2">
+        <span class="material-symbols-outlined" style="font-size:18px">error</span>
+        Please correct the errors below.
+      </div>
+
+      <div class="grid grid-cols-2 gap-5">
+        <div class="flex flex-col gap-1">
+          <label class="text-sm font-semibold text-on-surface">Title *</label>
+          <input type="text" th:field="*{title}" placeholder="Book title"
+                 class="border border-outline-variant rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary"/>
+          <span class="text-error text-xs" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+        </div>
+        <div class="flex flex-col gap-1">
+          <label class="text-sm font-semibold text-on-surface">Author *</label>
+          <input type="text" th:field="*{author}" placeholder="Author name"
+                 class="border border-outline-variant rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary"/>
+          <span class="text-error text-xs" th:if="${#fields.hasErrors('author')}" th:errors="*{author}"></span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-5">
+        <div class="flex flex-col gap-1">
+          <label class="text-sm font-semibold text-on-surface">ISBN</label>
+          <input type="text" th:field="*{isbn}" placeholder="978-..."
+                 class="border border-outline-variant rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary"/>
+        </div>
+        <div class="flex flex-col gap-1">
+          <label class="text-sm font-semibold text-on-surface">Genre</label>
+          <input type="text" th:field="*{genre}" placeholder="e.g. Fiction, Poetry, Non-Fiction"
+                 class="border border-outline-variant rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary"/>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-1">
+        <label class="text-sm font-semibold text-on-surface">Description</label>
+        <textarea th:field="*{description}" rows="4" placeholder="A brief description of the book..."
+                  class="border border-outline-variant rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary resize-none"></textarea>
+      </div>
+
+      <div class="grid grid-cols-3 gap-5">
+        <div class="flex flex-col gap-1">
+          <label class="text-sm font-semibold text-on-surface">Price ($) *</label>
+          <input type="number" step="0.01" min="0.01" th:field="*{price}" placeholder="0.00"
+                 class="border border-outline-variant rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary"/>
+          <span class="text-error text-xs" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
+        </div>
+        <div class="flex flex-col gap-1">
+          <label class="text-sm font-semibold text-on-surface">Stock Qty *</label>
+          <input type="number" min="0" th:field="*{stockQuantity}" placeholder="0"
+                 class="border border-outline-variant rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary"/>
+          <span class="text-error text-xs" th:if="${#fields.hasErrors('stockQuantity')}" th:errors="*{stockQuantity}"></span>
+        </div>
+        <div class="flex flex-col gap-1">
+          <label class="text-sm font-semibold text-on-surface">Badge</label>
+          <select th:field="*{badge}" class="border border-outline-variant rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary">
+            <option value="">None</option>
+            <option value="Bestseller">Bestseller</option>
+            <option value="Rare Find">Rare Find</option>
+            <option value="New">New</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Cover image: URL (primary) or file upload -->
+      <div class="flex flex-col gap-2">
+        <label class="text-sm font-semibold text-on-surface">Cover Image URL</label>
+        <input type="text" name="coverImageUrl" placeholder="https://example.com/cover.jpg"
+               class="border border-outline-variant rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary"/>
+        <p class="text-xs text-on-surface-variant">Paste a direct image URL (recommended). Or upload a file below:</p>
+        <input type="file" name="coverImage" accept="image/*"
+               class="border border-outline-variant rounded-lg px-3 py-2.5 text-sm text-on-surface-variant
+                      file:mr-3 file:py-1 file:px-3 file:rounded file:border-0
+                      file:bg-surface-container file:text-on-surface file:cursor-pointer"/>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <input type="checkbox" th:field="*{featured}" id="featuredChk"
+               class="w-4 h-4 rounded border-outline-variant text-primary focus:ring-primary"/>
+        <label for="featuredChk" class="text-sm text-on-surface">Feature this book on the homepage hero</label>
+      </div>
+
+      <div class="flex gap-3 mt-2">
+        <button type="submit"
+                class="bg-primary text-on-primary font-bold px-8 py-3 rounded-lg hover:opacity-90 transition-all">
+          Add Book
+        </button>
+        <a th:href="@{/admin/inventory}"
+           class="border border-outline-variant text-on-surface px-8 py-3 rounded-lg hover:bg-surface-container transition-all font-semibold">
+          Cancel
+        </a>
+      </div>
+    </form>
+  </div>
+</div>
+
+</body>
+</html>

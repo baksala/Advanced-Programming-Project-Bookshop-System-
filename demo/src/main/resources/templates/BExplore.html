@@ -1,371 +1,205 @@
 <!DOCTYPE html>
-
-<html class="light" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>The Bibliophile - Catalog</title>
-<!-- Google Fonts: Newsreader and Manrope -->
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600&amp;family=Newsreader:opsz,wght@6..72,400;500;600&amp;display=swap" rel="stylesheet"/>
-<!-- Material Symbols Outlined -->
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<style>
-        .material-symbols-outlined {
-            font-family: 'Material Symbols Outlined';
-            font-weight: normal;
-            font-style: normal;
-            font-size: 24px;
-            line-height: 1;
-            letter-spacing: normal;
-            text-transform: none;
-            display: inline-block;
-            white-space: nowrap;
-            word-wrap: normal;
-            direction: ltr;
-            font-feature-settings: 'liga';
-            -webkit-font-feature-settings: 'liga';
-            -webkit-font-smoothing: antialiased;
-        }
-    </style>
-<!-- Tailwind CSS -->
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<!-- Tailwind Configuration -->
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "on-surface-variant": "#45464d",
-                        "primary-container": "#131b2e",
-                        "surface-container-highest": "#d5e3fc",
-                        "on-primary-container": "#7c839b",
-                        "secondary": "#5e5f5d",
-                        "on-tertiary-container": "#c86a47",
-                        "on-secondary-container": "#626361",
-                        "on-secondary-fixed-variant": "#464745",
-                        "surface": "#f8f9ff",
-                        "surface-bright": "#f8f9ff",
-                        "on-secondary-fixed": "#1a1c1a",
-                        "error-container": "#ffdad6",
-                        "on-surface": "#0d1c2e",
-                        "secondary-fixed": "#e3e2e0",
-                        "inverse-on-surface": "#eaf1ff",
-                        "surface-dim": "#ccdbf3",
-                        "surface-tint": "#565e74",
-                        "tertiary": "#000000",
-                        "on-error": "#ffffff",
-                        "surface-variant": "#d5e3fc",
-                        "primary": "#000000",
-                        "on-primary": "#ffffff",
-                        "tertiary-fixed": "#ffdbcf",
-                        "on-error-container": "#93000a",
-                        "on-tertiary": "#ffffff",
-                        "secondary-container": "#e0e0dd",
-                        "primary-fixed": "#dae2fd",
-                        "on-background": "#0d1c2e",
-                        "surface-container-high": "#dce9ff",
-                        "tertiary-container": "#380d00",
-                        "background": "#f8f9ff",
-                        "surface-container-lowest": "#ffffff",
-                        "primary-fixed-dim": "#bec6e0",
-                        "tertiary-fixed-dim": "#ffb59b",
-                        "secondary-fixed-dim": "#c7c6c4",
-                        "outline-variant": "#c6c6cd",
-                        "inverse-surface": "#233144",
-                        "error": "#ba1a1a",
-                        "on-tertiary-fixed-variant": "#7a2f10",
-                        "on-primary-fixed-variant": "#3f465c",
-                        "inverse-primary": "#bec6e0",
-                        "surface-container": "#e6eeff",
-                        "on-primary-fixed": "#131b2e",
-                        "on-secondary": "#ffffff",
-                        "outline": "#76777d",
-                        "surface-container-low": "#eff4ff",
-                        "on-tertiary-fixed": "#380d00"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.125rem",
-                        "lg": "0.25rem",
-                        "xl": "0.5rem",
-                        "full": "0.75rem"
-                    },
-                    "spacing": {
-                        "gutter": "24px",
-                        "unit": "8px",
-                        "margin-mobile": "16px",
-                        "container-max": "1280px",
-                        "margin-desktop": "64px"
-                    },
-                    "fontFamily": {
-                        "headline-xl": ["Newsreader"],
-                        "headline-md": ["Newsreader"],
-                        "body-md": ["Manrope"],
-                        "body-lg": ["Manrope"],
-                        "label-sm": ["Manrope"],
-                        "headline-lg": ["Newsreader"]
-                    },
-                    "fontSize": {
-                        "headline-xl": ["48px", { "lineHeight": "1.2", "fontWeight": "600" }],
-                        "headline-md": ["24px", { "lineHeight": "1.4", "fontWeight": "500" }],
-                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
-                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
-                        "label-sm": ["13px", { "lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "600" }],
-                        "headline-lg": ["32px", { "lineHeight": "1.3", "fontWeight": "500" }]
-                    }
-                }
-            }
-        }
-    </script>
+<html class="light" lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <title>Catalog – The Bibliotech</title>
+  <th:block th:replace="~{fragments/nav :: headstyles}"></th:block>
 </head>
-<body class="bg-surface text-on-surface font-body-md min-h-screen flex flex-col pt-16">
-<!-- TopNavBar -->
-<header class="bg-primary dark:bg-primary-container text-on-primary dark:text-on-primary-container font-body-md text-body-md fixed top-0 w-full z-50 shadow-sm dark:shadow-none transition-all duration-200 ease-in-out">
-<div class="flex justify-between items-center px-margin-desktop h-16 max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
-<div class="font-headline-md text-headline-md text-on-primary dark:text-on-primary-container">
-                The Bibliophile
+<body class="bg-surface text-on-surface font-body-md antialiased min-h-screen flex flex-col">
+
+<th:block th:replace="~{fragments/nav :: topnav}"></th:block>
+
+<!-- Flash -->
+<div th:if="${cartMessage}" class="max-w-container-max mx-auto px-margin-desktop pt-20">
+  <div class="bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-xl text-sm flex items-center gap-2">
+    <span class="material-symbols-outlined" style="font-size:16px">check_circle</span>
+    <span th:text="${cartMessage}"></span>
+  </div>
+</div>
+
+<main class="flex-grow max-w-container-max mx-auto w-full px-margin-mobile md:px-margin-desktop pt-24 pb-16 flex flex-col md:flex-row gap-8">
+
+  <!-- ── SIDEBAR FILTERS ─────────────────────────────────────────────── -->
+  <aside class="w-full md:w-64 flex-shrink-0">
+    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 sticky top-24">
+      <h2 class="font-headline-md text-headline-md text-on-surface mb-6">Filters</h2>
+
+      <!-- Filter form — GET submits all to /catalog -->
+      <form th:action="@{/catalog}" method="get" id="filterForm">
+
+        <!-- Preserve sort and search across filter changes -->
+        <input type="hidden" name="sort" th:value="${sort}"/>
+        <input type="hidden" name="q"    th:value="${q}"/>
+
+        <!-- Genre checkboxes (dynamic from DB) -->
+        <div class="mb-6">
+          <h3 class="font-body-lg text-body-lg font-semibold text-on-surface mb-3">Genre</h3>
+          <ul class="space-y-2">
+            <li th:each="g : ${availableGenres}">
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" name="genre" th:value="${g}"
+                       th:checked="${selectedGenres != null and selectedGenres.contains(g)}"
+                       onchange="document.getElementById('filterForm').submit()"
+                       class="form-checkbox text-primary rounded border-outline focus:ring-primary"/>
+                <span class="font-body-md text-body-md text-on-surface-variant" th:text="${g}">Genre</span>
+              </label>
+            </li>
+            <li th:if="${#lists.isEmpty(availableGenres)}" class="text-on-surface-variant text-sm">No genres yet</li>
+          </ul>
+        </div>
+
+        <div class="h-px bg-outline-variant w-full mb-6"></div>
+
+        <!-- Price range -->
+        <div class="mb-6">
+          <h3 class="font-body-lg text-body-lg font-semibold text-on-surface mb-3">Price Range</h3>
+          <div class="flex items-center gap-2">
+            <input type="number" name="minPrice" th:value="${minPrice}"
+                   placeholder="Min" min="0" step="0.01"
+                   class="w-full bg-surface-container-lowest border-b border-outline-variant focus:border-primary px-2 py-1.5 outline-none text-sm text-on-surface"/>
+            <span class="text-on-surface-variant">–</span>
+            <input type="number" name="maxPrice" th:value="${maxPrice}"
+                   placeholder="Max" min="0" step="0.01"
+                   class="w-full bg-surface-container-lowest border-b border-outline-variant focus:border-primary px-2 py-1.5 outline-none text-sm text-on-surface"/>
+          </div>
+          <button type="submit"
+                  class="mt-3 w-full bg-primary text-on-primary text-xs font-semibold py-2 rounded hover:opacity-90 transition-opacity">
+            Apply
+          </button>
+        </div>
+
+        <div class="h-px bg-outline-variant w-full mb-4"></div>
+
+        <!-- Clear filters -->
+        <a th:href="@{/catalog}"
+           class="flex items-center gap-1 text-on-surface-variant hover:text-on-surface transition-colors text-xs font-semibold uppercase tracking-wider">
+          <span class="material-symbols-outlined" style="font-size:14px">close</span>
+          Clear Filters
+        </a>
+
+      </form>
+    </div>
+  </aside>
+
+  <!-- ── PRODUCT GRID ────────────────────────────────────────────────── -->
+  <section class="flex-grow">
+
+    <!-- Header row: search + sort -->
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
+      <div>
+        <h1 class="font-headline-xl text-headline-xl text-on-surface">Catalog</h1>
+        <p class="text-on-surface-variant text-sm mt-1"
+           th:text="${totalElements} + ' books found'">0 books found</p>
+      </div>
+
+      <!-- Search + sort controls -->
+      <form th:action="@{/catalog}" method="get" class="flex items-center gap-3 flex-wrap">
+        <!-- Preserve genre and price filters -->
+        <th:block th:each="g : ${selectedGenres}">
+          <input type="hidden" name="genre" th:value="${g}"/>
+        </th:block>
+        <input type="hidden" name="minPrice" th:value="${minPrice}"/>
+        <input type="hidden" name="maxPrice" th:value="${maxPrice}"/>
+
+        <!-- Search bar -->
+        <div class="flex items-center border-b border-outline-variant pb-1 gap-1">
+          <input type="text" name="q" th:value="${q}" placeholder="Search..."
+                 class="bg-transparent border-none outline-none text-on-surface placeholder-on-surface-variant text-sm w-36 focus:w-44 transition-all focus:ring-0 px-0"/>
+          <button type="submit" class="text-on-surface-variant hover:text-on-surface transition-colors">
+            <span class="material-symbols-outlined" style="font-size:18px">search</span>
+          </button>
+        </div>
+
+        <!-- Sort -->
+        <div class="flex items-center gap-2">
+          <label class="text-on-surface-variant text-sm">Sort:</label>
+          <select name="sort" onchange="this.form.submit()"
+                  class="bg-surface-container-lowest border border-outline-variant rounded py-1.5 px-3 text-sm text-on-surface focus:outline-none focus:border-primary">
+            <option value="popular"    th:selected="${sort == null or sort == 'popular'}">Most Popular</option>
+            <option value="newest"     th:selected="${sort == 'newest'}">Newest First</option>
+            <option value="price_asc"  th:selected="${sort == 'price_asc'}">Price: Low to High</option>
+            <option value="price_desc" th:selected="${sort == 'price_desc'}">Price: High to Low</option>
+          </select>
+        </div>
+      </form>
+    </div>
+
+    <!-- Book Grid -->
+    <div th:if="${!#lists.isEmpty(books)}"
+         class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-gutter">
+      <article th:each="book : ${books}"
+               class="bg-surface-container-lowest border border-[#E5E2D9] rounded flex flex-col overflow-hidden group hover:shadow-[0_8px_24px_rgba(19,27,46,0.06)] transition-shadow duration-300">
+        <div class="h-64 bg-surface-container w-full relative overflow-hidden">
+          <img th:src="${book.coverImageUrl}" th:alt="${book.title}"
+               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+          <div th:if="${book.badge != null}" class="absolute top-2 right-2">
+            <span th:class="${book.badge == 'Rare Find'} ? 'bg-on-surface-variant text-surface font-label-sm text-label-sm px-2 py-1 rounded' : 'bg-tertiary-container text-on-tertiary-container font-label-sm text-label-sm px-2 py-1 rounded'"
+                  th:text="${book.badge}">Badge</span>
+          </div>
+        </div>
+        <div class="p-4 flex flex-col flex-grow">
+          <span class="font-label-sm text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider"
+                th:text="${book.genre}">Genre</span>
+          <h3 class="font-headline-md text-headline-md text-on-surface mb-1 line-clamp-2"
+              th:text="${book.title}">Title</h3>
+          <p class="font-body-md text-body-md text-on-surface-variant mb-4"
+             th:text="${book.author}">Author</p>
+          <div class="mt-auto flex justify-between items-center">
+            <span class="font-headline-md text-headline-md font-semibold"
+                  th:text="'$' + ${book.price}">$0.00</span>
+            <div class="flex items-center gap-1">
+              <!-- Wishlist button -->
+              <a th:href="@{/account/wishlist}" sec:authorize="isAuthenticated()"
+                 title="Add to wishlist"
+                 class="text-on-surface-variant hover:text-error p-2 rounded-full hover:bg-surface-container-highest transition-colors">
+                <span class="material-symbols-outlined" style="font-size:20px">favorite_border</span>
+              </a>
+              <!-- Authenticated: add to cart -->
+              <form th:action="@{/cart/add}" method="post" sec:authorize="isAuthenticated()">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <input type="hidden" name="bookId" th:value="${book.id}"/>
+                <button type="submit" title="Add to cart"
+                        class="bg-tertiary-container text-on-tertiary-container p-2 rounded-full hover:opacity-90 transition-colors">
+                  <span class="material-symbols-outlined" style="font-size:22px">add_shopping_cart</span>
+                </button>
+              </form>
+              <!-- Anonymous: redirect to login -->
+              <a th:href="@{/login}" sec:authorize="isAnonymous()" title="Sign in to add to cart"
+                 class="bg-tertiary-container text-on-tertiary-container p-2 rounded-full hover:opacity-90 transition-colors">
+                <span class="material-symbols-outlined" style="font-size:22px">add_shopping_cart</span>
+              </a>
             </div>
-<nav class="hidden md:flex items-center gap-6">
-<!-- Active Item -->
-<a class="text-on-primary border-b-2 border-on-tertiary-fixed-variant pb-1" href="#">Catalog</a>
-<!-- Inactive Items -->
-<a class="text-on-primary-container hover:text-on-primary transition-colors hover:opacity-90" href="#">New Arrivals</a>
-<a class="text-on-primary-container hover:text-on-primary transition-colors hover:opacity-90" href="#">Rare Finds</a>
-<a class="text-on-primary-container hover:text-on-primary transition-colors hover:opacity-90" href="#">About</a>
-</nav>
-<div class="flex items-center gap-4">
-<button aria-label="Shopping Cart" class="hover:opacity-90 transition-all duration-200 ease-in-out">
-<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
-</button>
-<button aria-label="Account" class="hover:opacity-90 transition-all duration-200 ease-in-out">
-<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
-</button>
-</div>
-</div>
-</header>
-<!-- Main Content -->
-<main class="flex-grow max-w-container-max mx-auto w-full px-margin-mobile md:px-margin-desktop py-8 flex flex-col md:flex-row gap-8">
-<!-- Sidebar Filters -->
-<aside class="w-full md:w-64 flex-shrink-0">
-<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 sticky top-24">
-<h2 class="font-headline-md text-headline-md mb-6">Filters</h2>
-<!-- Genre Filter -->
-<div class="mb-6">
-<h3 class="font-body-lg text-body-lg font-semibold mb-3">Genre</h3>
-<ul class="space-y-2 font-body-md text-body-md text-on-surface-variant">
-<li>
-<label class="flex items-center gap-2 cursor-pointer">
-<input checked="" class="form-checkbox text-tertiary-container rounded border-outline focus:ring-tertiary-container" type="checkbox"/>
-                                Fiction
-                            </label>
-</li>
-<li>
-<label class="flex items-center gap-2 cursor-pointer">
-<input class="form-checkbox text-tertiary-container rounded border-outline focus:ring-tertiary-container" type="checkbox"/>
-                                Non-Fiction
-                            </label>
-</li>
-<li>
-<label class="flex items-center gap-2 cursor-pointer">
-<input class="form-checkbox text-tertiary-container rounded border-outline focus:ring-tertiary-container" type="checkbox"/>
-                                Poetry
-                            </label>
-</li>
-<li>
-<label class="flex items-center gap-2 cursor-pointer">
-<input class="form-checkbox text-tertiary-container rounded border-outline focus:ring-tertiary-container" type="checkbox"/>
-                                Philosophy
-                            </label>
-</li>
-</ul>
-</div>
-<div class="h-px bg-outline-variant w-full mb-6"></div>
-<!-- Price Filter -->
-<div class="mb-6">
-<h3 class="font-body-lg text-body-lg font-semibold mb-3">Price</h3>
-<div class="flex items-center gap-2">
-<input class="w-full bg-surface-container-lowest border-b border-on-surface-variant focus:border-primary px-2 py-1 outline-none font-body-md text-body-md" placeholder="Min" type="number"/>
-<span class="text-on-surface-variant">-</span>
-<input class="w-full bg-surface-container-lowest border-b border-on-surface-variant focus:border-primary px-2 py-1 outline-none font-body-md text-body-md" placeholder="Max" type="number"/>
-</div>
-</div>
-<div class="h-px bg-outline-variant w-full mb-6"></div>
-<!-- Rating Filter -->
-<div>
-<h3 class="font-body-lg text-body-lg font-semibold mb-3">Rating</h3>
-<ul class="space-y-2 font-body-md text-body-md text-on-surface-variant">
-<li>
-<label class="flex items-center gap-2 cursor-pointer">
-<input class="form-radio text-tertiary-container border-outline focus:ring-tertiary-container" name="rating" type="radio"/>
-                                4 Stars &amp; Up
-                            </label>
-</li>
-<li>
-<label class="flex items-center gap-2 cursor-pointer">
-<input class="form-radio text-tertiary-container border-outline focus:ring-tertiary-container" name="rating" type="radio"/>
-                                3 Stars &amp; Up
-                            </label>
-</li>
-</ul>
-</div>
-</div>
-</aside>
-<!-- Product Grid Area -->
-<section class="flex-grow">
-<!-- Header & Sorting -->
-<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
-<h1 class="font-headline-xl text-headline-xl text-on-surface">Catalog</h1>
-<div class="flex items-center gap-2">
-<label class="font-body-md text-body-md text-on-surface-variant" for="sort">Sort by:</label>
-<select class="bg-surface-container-lowest border border-outline-variant rounded-md py-1.5 px-3 font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary" id="sort">
-<option>Most Popular</option>
-<option>Price: Low to High</option>
-<option>Price: High to Low</option>
-<option>Newest</option>
-</select>
-</div>
-</div>
-<!-- Grid -->
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-gutter">
-<!-- Book Card 1 -->
-<article class="bg-surface-container-lowest border border-[#E5E2D9] rounded-DEFAULT flex flex-col overflow-hidden group hover:shadow-[0_4px_20px_rgba(19,27,46,0.04)] transition-shadow duration-300">
-<div class="h-64 bg-surface-container w-full relative overflow-hidden">
-<img alt="Book Cover" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A vintage hardcover book with a faded blue cloth binding, resting on a clean, light cream surface. Soft, diffused, high-key lighting casts a gentle ambient shadow, creating a warm, tactile, and minimalist aesthetic suitable for a high-end online bookstore." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCywOp43lATCSXa0YTrNrVyp2L044cO4KFbTbL6eAcPBRcMTRJ0b-Ti2-E7RTizMhGVTqMsZtwo3vQYMWipor2fy9rO3I3SISaygWqqDXJ4oDjUPQfAWxlUMuLUQMS2A10QUbKu8t_F4v9rxE_ZB9wFNL2l2rGDLVSwCL6aMf-9pDBITyocUChQwy_OMHwqoPkLbQpWwsSzLLypwYp7onZl9xzz1uEnoqUqUkozUxsLqAa_TQqK_E9WEoziv8xZC4AQEXHwzAr0Akk"/>
-<div class="absolute top-2 right-2 bg-tertiary-container text-on-tertiary-container font-label-sm text-label-sm px-2 py-1 rounded">
-                            Bestseller
-                        </div>
-</div>
-<div class="p-4 flex flex-col flex-grow">
-<span class="font-label-sm text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">Fiction</span>
-<h3 class="font-headline-md text-headline-md mb-1 line-clamp-2">The Solitude of Prime Numbers</h3>
-<p class="font-body-md text-body-md text-on-surface-variant mb-4">Paolo Giordano</p>
-<div class="mt-auto flex justify-between items-center">
-<span class="font-headline-md text-headline-md font-semibold">$24.00</span>
-<button aria-label="Add to cart" class="bg-tertiary-container text-on-tertiary-container p-2 rounded-full hover:bg-opacity-90 transition-colors">
-<span class="material-symbols-outlined" data-icon="add_shopping_cart">add_shopping_cart</span>
-</button>
-</div>
-</div>
-</article>
-<!-- Book Card 2 -->
-<article class="bg-surface-container-lowest border border-[#E5E2D9] rounded-DEFAULT flex flex-col overflow-hidden group hover:shadow-[0_4px_20px_rgba(19,27,46,0.04)] transition-shadow duration-300">
-<div class="h-64 bg-surface-container w-full relative overflow-hidden">
-<img alt="Book Cover" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A pristine white paperback book with minimalist typography on the cover, leaning against a stack of similar books in a brightly lit, modern environment. The color palette is muted with soft creams and whites, reflecting a clean, intellectual, and refined aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCx6v9LCO48QofpYHAf-cwiF7TgSc47oCiHw412se-xooujSdyNOsnt5jOOnmkqzTV9o873m9vSIURcycEpZtq4oHEA-01gxBQJPAVJFor6rA7eMz8YQLhDBFhh35WJyqZyqxakSlJ4W28N7ePNTnmIOFNvz1OChT3_zFVoJ85fMsIhjQ5cv_oKixm_3QBn6Y_wqmxXXCX6HFkmgPE8U7kthHvPXEcrfCQJDrF6RCi9fs2U4Xz2fntWps2VnrKlWxivbhe8QNkjcv0"/>
-</div>
-<div class="p-4 flex flex-col flex-grow">
-<span class="font-label-sm text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">Philosophy</span>
-<h3 class="font-headline-md text-headline-md mb-1 line-clamp-2">Meditations</h3>
-<p class="font-body-md text-body-md text-on-surface-variant mb-4">Marcus Aurelius</p>
-<div class="mt-auto flex justify-between items-center">
-<span class="font-headline-md text-headline-md font-semibold">$18.50</span>
-<button aria-label="Add to cart" class="bg-tertiary-container text-on-tertiary-container p-2 rounded-full hover:bg-opacity-90 transition-colors">
-<span class="material-symbols-outlined" data-icon="add_shopping_cart">add_shopping_cart</span>
-</button>
-</div>
-</div>
-</article>
-<!-- Book Card 3 -->
-<article class="bg-surface-container-lowest border border-[#E5E2D9] rounded-DEFAULT flex flex-col overflow-hidden group hover:shadow-[0_4px_20px_rgba(19,27,46,0.04)] transition-shadow duration-300">
-<div class="h-64 bg-surface-container w-full relative overflow-hidden">
-<img alt="Book Cover" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="An open book lying flat on a wooden table, its pages slightly yellowed with age. A small, delicate fern leaf acts as a bookmark. The lighting is natural and soft, creating a warm, inviting, and slightly nostalgic mood in a minimalist setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRYLzI-kSwNf-1YGIE4Gq725r0cDPU57c0QfDS2ljfgmlmWFH2Ur0FYONKGjHHonYcsvwb39J5NmQT-dY69KmqSFliOuZU0y8y-FslBumI8TyDVOy2rRK6WeCINDZyohNrdfF-AMx-PIuI3_oTqUbpjq9JC3HVyERr7JsCu3HrW-8ro-yvtf7DrIRnmqZI-4iOSa2qJBcnfFcyCSLZos6-mgClWyBa0u5TQ5fyX8NHH9eOL67O5gw3nBsbkyfVFRvm9VMwthVsRY8"/>
-<div class="absolute top-2 right-2 bg-on-surface-variant text-surface font-label-sm text-label-sm px-2 py-1 rounded">
-                            Rare Find
-                        </div>
-</div>
-<div class="p-4 flex flex-col flex-grow">
-<span class="font-label-sm text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">Poetry</span>
-<h3 class="font-headline-md text-headline-md mb-1 line-clamp-2">Leaves of Grass</h3>
-<p class="font-body-md text-body-md text-on-surface-variant mb-4">Walt Whitman</p>
-<div class="mt-auto flex justify-between items-center">
-<span class="font-headline-md text-headline-md font-semibold">$45.00</span>
-<button aria-label="Add to cart" class="bg-tertiary-container text-on-tertiary-container p-2 rounded-full hover:bg-opacity-90 transition-colors">
-<span class="material-symbols-outlined" data-icon="add_shopping_cart">add_shopping_cart</span>
-</button>
-</div>
-</div>
-</article>
-<!-- Book Card 4 -->
-<article class="bg-surface-container-lowest border border-[#E5E2D9] rounded-DEFAULT flex flex-col overflow-hidden group hover:shadow-[0_4px_20px_rgba(19,27,46,0.04)] transition-shadow duration-300">
-<div class="h-64 bg-surface-container w-full relative overflow-hidden">
-<img alt="Book Cover" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A modern hardcover book with a geometric, abstract cover design in shades of deep navy and soft cream. It sits alone on a light surface against a clean background. The high-key lighting emphasizes the book's crisp edges and premium feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRSx3DsChPXp1ooSul7vx7_E_NO5-UkyptBKkHklFGwM_fSU_Vt7nPBFlpIKpFsUG7Mw3fjric8Y3ej0fM9SrjmE1nOd4_GvbPSpaJ_7fqKSBS2laQVDsplQCHCgHSFa__yLAy4mEXOL9_pGyaN0Ogv6hMNr-0LZXdUi3S-itBU4gLjo12F3ICJ6J_VkUOgK02h1qgoleLNI-Zk0D0ud2uRszN_WUPrZTu-BNCnjhWPNeu-aRcJ0vDefkwbQ-KWlgdKah406kq-TI"/>
-</div>
-<div class="p-4 flex flex-col flex-grow">
-<span class="font-label-sm text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">Non-Fiction</span>
-<h3 class="font-headline-md text-headline-md mb-1 line-clamp-2">The Design of Everyday Things</h3>
-<p class="font-body-md text-body-md text-on-surface-variant mb-4">Don Norman</p>
-<div class="mt-auto flex justify-between items-center">
-<span class="font-headline-md text-headline-md font-semibold">$22.95</span>
-<button aria-label="Add to cart" class="bg-tertiary-container text-on-tertiary-container p-2 rounded-full hover:bg-opacity-90 transition-colors">
-<span class="material-symbols-outlined" data-icon="add_shopping_cart">add_shopping_cart</span>
-</button>
-</div>
-</div>
-</article>
-<!-- Book Card 5 -->
-<article class="bg-surface-container-lowest border border-[#E5E2D9] rounded-DEFAULT flex flex-col overflow-hidden group hover:shadow-[0_4px_20px_rgba(19,27,46,0.04)] transition-shadow duration-300">
-<div class="h-64 bg-surface-container w-full relative overflow-hidden">
-<img alt="Book Cover" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A stack of beautifully bound classic novels sitting on a minimal, light-colored desk. A soft, warm light illuminates the gold foil lettering on their spines, creating an atmosphere of quiet study and timeless elegance in a curated space." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqTkDMuBcG8aQ4BZj-cB5rs7LNPYo5SspJYn7xoGLlTE-lP2gb89WeTbg7ChIFkiJeVkm9edLp1tUdxFsW9db9EnsInkqDLUQVQ38digKiZxPPnxPfFBV6ZpWJFXfEJZZlngdJdznfbLvBDDDGp_GzuuK-t8KhVylAEXswIqvNTVMO0DmE8giht3YQQjBtGrb34pJ-8N-zWRyddGBbKXcvRq3KjjDdAGO1Q-rb72rPsrNE5HbTP7qJIzQwwJ7RlJijvQXRqi5V3rg"/>
-</div>
-<div class="p-4 flex flex-col flex-grow">
-<span class="font-label-sm text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">Fiction</span>
-<h3 class="font-headline-md text-headline-md mb-1 line-clamp-2">To the Lighthouse</h3>
-<p class="font-body-md text-body-md text-on-surface-variant mb-4">Virginia Woolf</p>
-<div class="mt-auto flex justify-between items-center">
-<span class="font-headline-md text-headline-md font-semibold">$16.00</span>
-<button aria-label="Add to cart" class="bg-tertiary-container text-on-tertiary-container p-2 rounded-full hover:bg-opacity-90 transition-colors">
-<span class="material-symbols-outlined" data-icon="add_shopping_cart">add_shopping_cart</span>
-</button>
-</div>
-</div>
-</article>
-<!-- Book Card 6 -->
-<article class="bg-surface-container-lowest border border-[#E5E2D9] rounded-DEFAULT flex flex-col overflow-hidden group hover:shadow-[0_4px_20px_rgba(19,27,46,0.04)] transition-shadow duration-300">
-<div class="h-64 bg-surface-container w-full relative overflow-hidden">
-<img alt="Book Cover" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A close-up shot of a thick, textured spine of an old encyclopedia volume, resting against a pale, warm surface. The focus is sharp on the worn texture of the cover, emphasizing tactile quality and intellectual history in a bright, modern setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBE5muVU3yNZVbhGVQCkSZjxdgeNsCM14z3PiHh39TeVThXci-lUqEFuMmGWEDgvUX_X6P86EaN3ComfnhqvF07kCC07w1GMoY5uxKBomLbZxve-W9-oA1Mc0voJm3z4K6XUk74PFrVKyb6KTeHGl5RAaxdk6lZx8iuJeCP0mebO4CXqfvWK3NT3zPCLIN8M1bvgR8wHnXtm3N2y4hzgbHLGj4PciSrtlxf6ExL_d_FCl3IOGd6UPnoPfdpvI8Uy0XGim6cq_lX3FU"/>
-</div>
-<div class="p-4 flex flex-col flex-grow">
-<span class="font-label-sm text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">Non-Fiction</span>
-<h3 class="font-headline-md text-headline-md mb-1 line-clamp-2">A Brief History of Time</h3>
-<p class="font-body-md text-body-md text-on-surface-variant mb-4">Stephen Hawking</p>
-<div class="mt-auto flex justify-between items-center">
-<span class="font-headline-md text-headline-md font-semibold">$19.50</span>
-<button aria-label="Add to cart" class="bg-tertiary-container text-on-tertiary-container p-2 rounded-full hover:bg-opacity-90 transition-colors">
-<span class="material-symbols-outlined" data-icon="add_shopping_cart">add_shopping_cart</span>
-</button>
-</div>
-</div>
-</article>
-</div>
-<!-- Pagination -->
-<div class="mt-12 flex justify-center items-center gap-2">
-<button class="w-10 h-10 border border-outline-variant rounded flex items-center justify-center text-on-surface hover:bg-surface-container transition-colors disabled:opacity-50" disabled="">
-<span class="material-symbols-outlined text-sm" data-icon="chevron_left">chevron_left</span>
-</button>
-<button class="w-10 h-10 border border-primary bg-primary text-on-primary rounded flex items-center justify-center font-body-md font-semibold">1</button>
-<button class="w-10 h-10 border border-outline-variant rounded flex items-center justify-center text-on-surface hover:bg-surface-container transition-colors font-body-md font-semibold">2</button>
-<button class="w-10 h-10 border border-outline-variant rounded flex items-center justify-center text-on-surface hover:bg-surface-container transition-colors font-body-md font-semibold">3</button>
-<span class="px-2 text-on-surface-variant">...</span>
-<button class="w-10 h-10 border border-outline-variant rounded flex items-center justify-center text-on-surface hover:bg-surface-container transition-colors">
-<span class="material-symbols-outlined text-sm" data-icon="chevron_right">chevron_right</span>
-</button>
-</div>
-</section>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- Empty state -->
+    <div th:if="${#lists.isEmpty(books)}" class="text-center py-24">
+      <span class="material-symbols-outlined text-6xl text-on-surface-variant">search_off</span>
+      <p class="text-on-surface-variant mt-4 text-lg">No books found matching your filters.</p>
+      <a th:href="@{/catalog}" class="mt-4 inline-block text-primary font-semibold hover:underline">
+        Clear filters
+      </a>
+    </div>
+
+  </section>
 </main>
+
 <!-- Footer -->
-<footer class="bg-primary dark:bg-primary-container text-on-primary dark:text-on-primary-container font-body-md text-body-md relative w-full border-t border-outline-variant mt-auto flex flex-col items-center justify-center py-12 px-margin-desktop gap-6">
-<div class="font-headline-lg text-headline-lg text-on-primary">
-            The Bibliophile
-        </div>
-<div class="flex flex-wrap justify-center gap-6">
-<a class="text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">Terms of Service</a>
-<a class="text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">Privacy Policy</a>
-<a class="text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">Shipping Info</a>
-<a class="text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">Contact Us</a>
-</div>
-<div class="text-on-primary-container text-sm mt-4 text-center">
-            © 2024 The Bibliophile. Purveyors of Fine Literature.
-        </div>
+<footer class="bg-primary text-on-primary font-body-md relative w-full border-t border-outline-variant mt-auto">
+  <div class="flex flex-col items-center justify-center py-12 px-margin-desktop gap-6 max-w-container-max mx-auto">
+    <div class="font-headline-lg text-headline-lg text-on-primary font-bold">The Bibliotech</div>
+    <div class="flex flex-wrap justify-center gap-6">
+      <a th:href="@{/terms}"    class="text-on-primary-container hover:text-on-primary hover:underline transition-all text-sm">Terms of Service</a>
+      <a th:href="@{/privacy}"  class="text-on-primary-container hover:text-on-primary hover:underline transition-all text-sm">Privacy Policy</a>
+      <a th:href="@{/shipping}" class="text-on-primary-container hover:text-on-primary hover:underline transition-all text-sm">Shipping Info</a>
+      <a th:href="@{/contact}"  class="text-on-primary-container hover:text-on-primary hover:underline transition-all text-sm">Contact Us</a>
+    </div>
+    <p class="text-on-primary-container text-sm">© 2025 The Bibliotech. Voyagers of Fine Literature.</p>
+  </div>
 </footer>
-</body></html>
+
+</body>
+</html>

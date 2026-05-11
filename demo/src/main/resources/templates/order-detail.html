@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html class="light" lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <title>Order Details – The Bibliotech</title>
+  <th:block th:replace="~{fragments/nav :: headstyles}"></th:block>
+</head>
+<body class="bg-surface text-on-surface font-body-md antialiased min-h-screen flex flex-col">
+
+<th:block th:replace="~{fragments/nav :: topnav}"></th:block>
+
+<main class="flex-grow pt-[80px] pb-24">
+  <div class="max-w-3xl mx-auto px-margin-mobile md:px-margin-desktop mt-10">
+
+    <!-- Breadcrumb -->
+    <div class="flex items-center gap-2 text-on-surface-variant text-sm mb-8">
+      <a th:href="@{/account/orders}" class="hover:text-on-surface transition-colors">Order History</a>
+      <span class="material-symbols-outlined" style="font-size:14px">chevron_right</span>
+      <span th:text="${order.orderNumber}">Order</span>
+    </div>
+
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+      <div>
+        <h1 class="font-headline-lg text-headline-lg text-on-surface" th:text="${order.orderNumber}">BBL-XXXXXX</h1>
+        <p class="text-on-surface-variant text-sm mt-1"
+           th:text="'Placed on ' + ${#temporals.format(order.createdAt, 'MMMM dd, yyyy')}">Date</p>
+      </div>
+      <!-- Status badge -->
+      <span th:with="s=${order.status.name()}"
+            th:class="${s == 'PENDING'}    ? 'font-label-sm text-label-sm px-4 py-2 rounded-full uppercase tracking-widest bg-yellow-100 text-yellow-800'
+                     : (${s == 'PROCESSING'} ? 'font-label-sm text-label-sm px-4 py-2 rounded-full uppercase tracking-widest bg-blue-100 text-blue-800'
+                     : (${s == 'SHIPPED'}    ? 'font-label-sm text-label-sm px-4 py-2 rounded-full uppercase tracking-widest bg-primary text-on-primary'
+                     : (${s == 'DELIVERED'}  ? 'font-label-sm text-label-sm px-4 py-2 rounded-full uppercase tracking-widest bg-green-100 text-green-800'
+                     : 'font-label-sm text-label-sm px-4 py-2 rounded-full uppercase tracking-widest bg-error-container text-error')))"
+            th:text="${order.status}">STATUS</span>
+    </div>
+
+    <!-- Items card -->
+    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm overflow-hidden mb-6">
+      <div class="px-6 py-4 border-b border-outline-variant">
+        <h2 class="font-headline-md text-on-surface">Items</h2>
+      </div>
+      <div class="divide-y divide-outline-variant">
+        <div th:each="item : ${order.items}" class="flex items-center gap-5 px-6 py-5">
+          <img th:src="${item.book.coverImageUrl != null ? item.book.coverImageUrl : 'https://placehold.co/64x90/e6eeff/45464d?text=Book'}"
+               th:alt="${item.book.title}"
+               class="w-16 h-[90px] object-cover rounded border border-outline-variant shrink-0"
+               onerror="this.src='https://placehold.co/64x90/e6eeff/45464d?text=Book'"/>
+          <div class="flex-1">
+            <p class="font-semibold text-on-surface" th:text="${item.book.title}">Title</p>
+            <p class="text-sm text-on-surface-variant" th:text="${item.book.author}">Author</p>
+            <p class="text-xs text-on-surface-variant mt-1">
+              Qty: <span th:text="${item.quantity}">1</span>
+              &nbsp;·&nbsp; Unit price: $<span th:text="${item.priceAtPurchase}">0.00</span>
+            </p>
+          </div>
+          <span class="font-semibold text-on-surface"
+                th:text="'$' + ${#numbers.formatDecimal(item.priceAtPurchase.doubleValue() * item.quantity, 1, 2)}">$0.00</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Shipping + Total card -->
+    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm p-6 mb-6">
+      <h2 class="font-headline-md text-on-surface mb-5">Order Summary</h2>
+      <div class="flex flex-col gap-3 text-sm">
+        <div class="flex justify-between">
+          <span class="text-on-surface-variant">Shipping Method</span>
+          <span class="font-semibold text-on-surface" th:text="${order.shippingMethod}">Standard</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-on-surface-variant">Shipping Address</span>
+          <span class="font-semibold text-on-surface text-right max-w-xs" th:text="${order.shippingAddress}">Address</span>
+        </div>
+        <div class="flex justify-between pt-3 border-t border-outline-variant mt-1">
+          <span class="font-bold text-on-surface text-base">Total Paid</span>
+          <span class="font-bold text-on-surface text-xl"
+                th:text="'$' + ${#numbers.formatDecimal(order.totalAmount, 1, 2)}">$0.00</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Back button -->
+    <a th:href="@{/account/orders}"
+       class="inline-flex items-center gap-2 border border-outline-variant text-on-surface font-semibold px-6 py-2.5 rounded-lg hover:bg-surface-container transition-all">
+      <span class="material-symbols-outlined" style="font-size:16px">arrow_back</span>
+      Back to Order History
+    </a>
+  </div>
+</main>
+
+<th:block th:replace="~{fragments/nav :: footer}"></th:block>
+</body>
+</html>

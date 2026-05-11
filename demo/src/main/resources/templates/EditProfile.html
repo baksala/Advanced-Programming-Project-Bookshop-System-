@@ -1,301 +1,210 @@
 <!DOCTYPE html>
-
-<html class="light" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Edit Profile - The Bibliophile</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600&amp;family=Newsreader:opsz,wght@6..72,400;500;600&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-        tailwind.config = {
-          darkMode: "class",
-          theme: {
-            extend: {
-              "colors": {
-                      "on-surface-variant": "#45464d",
-                      "primary-container": "#131b2e",
-                      "surface-container-highest": "#d5e3fc",
-                      "on-primary-container": "#7c839b",
-                      "secondary": "#5e5f5d",
-                      "on-tertiary-container": "#c86a47",
-                      "on-secondary-container": "#626361",
-                      "on-secondary-fixed-variant": "#464745",
-                      "surface": "#f8f9ff",
-                      "surface-bright": "#f8f9ff",
-                      "on-secondary-fixed": "#1a1c1a",
-                      "error-container": "#ffdad6",
-                      "on-surface": "#0d1c2e",
-                      "secondary-fixed": "#e3e2e0",
-                      "inverse-on-surface": "#eaf1ff",
-                      "surface-dim": "#ccdbf3",
-                      "surface-tint": "#565e74",
-                      "tertiary": "#000000",
-                      "on-error": "#ffffff",
-                      "surface-variant": "#d5e3fc",
-                      "primary": "#000000",
-                      "on-primary": "#ffffff",
-                      "tertiary-fixed": "#ffdbcf",
-                      "on-error-container": "#93000a",
-                      "on-tertiary": "#ffffff",
-                      "secondary-container": "#e0e0dd",
-                      "primary-fixed": "#dae2fd",
-                      "on-background": "#0d1c2e",
-                      "surface-container-high": "#dce9ff",
-                      "tertiary-container": "#380d00",
-                      "background": "#f8f9ff",
-                      "surface-container-lowest": "#ffffff",
-                      "primary-fixed-dim": "#bec6e0",
-                      "tertiary-fixed-dim": "#ffb59b",
-                      "secondary-fixed-dim": "#c7c6c4",
-                      "outline-variant": "#c6c6cd",
-                      "inverse-surface": "#233144",
-                      "error": "#ba1a1a",
-                      "on-tertiary-fixed-variant": "#7a2f10",
-                      "on-primary-fixed-variant": "#3f465c",
-                      "inverse-primary": "#bec6e0",
-                      "surface-container": "#e6eeff",
-                      "on-primary-fixed": "#131b2e",
-                      "on-secondary": "#ffffff",
-                      "outline": "#76777d",
-                      "surface-container-low": "#eff4ff",
-                      "on-tertiary-fixed": "#380d00"
-              },
-              "borderRadius": {
-                      "DEFAULT": "0.125rem",
-                      "lg": "0.25rem",
-                      "xl": "0.5rem",
-                      "full": "0.75rem"
-              },
-              "spacing": {
-                      "gutter": "24px",
-                      "unit": "8px",
-                      "margin-mobile": "16px",
-                      "container-max": "1280px",
-                      "margin-desktop": "64px"
-              },
-              "fontFamily": {
-                      "headline-xl": [
-                              "Newsreader"
-                      ],
-                      "headline-md": [
-                              "Newsreader"
-                      ],
-                      "body-md": [
-                              "Manrope"
-                      ],
-                      "body-lg": [
-                              "Manrope"
-                      ],
-                      "label-sm": [
-                              "Manrope"
-                      ],
-                      "headline-lg": [
-                              "Newsreader"
-                      ]
-              },
-              "fontSize": {
-                      "headline-xl": [
-                              "48px",
-                              {
-                                      "lineHeight": "1.2",
-                                      "fontWeight": "600"
-                              }
-                      ],
-                      "headline-md": [
-                              "24px",
-                              {
-                                      "lineHeight": "1.4",
-                                      "fontWeight": "500"
-                              }
-                      ],
-                      "body-md": [
-                              "16px",
-                              {
-                                      "lineHeight": "1.6",
-                                      "fontWeight": "400"
-                              }
-                      ],
-                      "body-lg": [
-                              "18px",
-                              {
-                                      "lineHeight": "1.6",
-                                      "fontWeight": "400"
-                              }
-                      ],
-                      "label-sm": [
-                              "13px",
-                              {
-                                      "lineHeight": "1.2",
-                                      "letterSpacing": "0.05em",
-                                      "fontWeight": "600"
-                              }
-                      ],
-                      "headline-lg": [
-                              "32px",
-                              {
-                                      "lineHeight": "1.3",
-                                      "fontWeight": "500"
-                              }
-                      ]
-              }
-            },
-          }
-        }
-    </script>
-<style>
-        .material-symbols-outlined {
-          font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        body {
-            background-color: #f8f9ff; /* bg-background fallback */
-            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-        }
-    </style>
+<html class="light" lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <title>Edit Profile – The Bibliotech</title>
+  <th:block th:replace="~{fragments/nav :: headstyles}"></th:block>
 </head>
-<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col pt-16">
-<!-- TopNavBar -->
-<nav class="fixed top-0 w-full z-50 bg-primary shadow-sm transition-all duration-200 ease-in-out">
-<div class="flex justify-between items-center px-margin-desktop h-16 max-w-container-max mx-auto">
-<div class="font-headline-md text-headline-md text-on-primary">
-                The Bibliophile
+<body class="bg-surface text-on-surface font-body-md antialiased min-h-screen flex flex-col">
+
+<th:block th:replace="~{fragments/nav :: topnav}"></th:block>
+
+<main class="flex-grow pt-[80px] pb-16">
+  <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop mt-10 flex flex-col md:flex-row gap-8">
+
+    <!-- Account sidebar -->
+    <aside class="w-full md:w-56 flex-shrink-0">
+      <div class="pb-5">
+        <h1 class="font-headline-lg text-headline-lg text-primary">Account</h1>
+      </div>
+      <nav class="flex flex-col gap-1">
+        <a th:href="@{/account/profile}"
+           class="font-label-sm text-label-sm text-on-tertiary-container bg-surface-container-high rounded px-4 py-3 flex items-center gap-3">
+          <span class="material-symbols-outlined" style="font-size:18px">manage_accounts</span> Edit Profile
+        </a>
+        <a th:href="@{/account/orders}"
+           class="font-label-sm text-label-sm text-on-surface-variant hover:bg-surface-container-high transition-colors rounded px-4 py-3 flex items-center gap-3">
+          <span class="material-symbols-outlined" style="font-size:18px">receipt_long</span> Order History
+        </a>
+        <a th:href="@{/account/wishlist}"
+           class="font-label-sm text-label-sm text-on-surface-variant hover:bg-surface-container-high transition-colors rounded px-4 py-3 flex items-center gap-3">
+          <span class="material-symbols-outlined" style="font-size:18px">favorite</span> Wishlist
+        </a>
+        <form th:action="@{/logout}" method="post" class="mt-6">
+          <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+          <button type="submit"
+                  class="w-full font-label-sm text-label-sm text-on-surface-variant hover:bg-surface-container-high transition-colors rounded px-4 py-3 flex items-center gap-3">
+            <span class="material-symbols-outlined" style="font-size:18px">logout</span> Sign Out
+          </button>
+        </form>
+      </nav>
+    </aside>
+
+    <!-- Main form area -->
+    <div class="flex-grow flex flex-col gap-8 max-w-2xl">
+
+      <!-- Flash messages -->
+      <div th:if="${successMessage}"
+           class="flex items-center gap-2 bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-xl text-sm">
+        <span class="material-symbols-outlined" style="font-size:18px">check_circle</span>
+        <span th:text="${successMessage}"></span>
+      </div>
+      <div th:if="${errorMessage}"
+           class="flex items-center gap-2 bg-error-container border border-error/30 text-on-error-container px-4 py-3 rounded-xl text-sm">
+        <span class="material-symbols-outlined" style="font-size:18px">error</span>
+        <span th:text="${errorMessage}"></span>
+      </div>
+
+      <!-- Profile picture: initials only, no photo upload -->
+      <section class="bg-surface-container-lowest border border-secondary-container rounded p-8 flex flex-col sm:flex-row items-center sm:items-start gap-7 shadow-sm">
+
+        <!-- Initials circle -->
+        <div class="w-28 h-28 rounded-full bg-primary-container flex items-center justify-center shrink-0 border-2 border-outline-variant select-none">
+          <span class="text-3xl font-bold text-on-primary"
+                th:text="${#strings.toUpperCase(#strings.substring(user.firstName,0,1)) + #strings.toUpperCase(#strings.substring(user.lastName,0,1))}">AB</span>
+        </div>
+
+        <!-- Name + info -->
+        <div class="flex flex-col justify-center text-center sm:text-left gap-2">
+          <h2 class="font-headline-md text-headline-md text-primary" th:text="${user.fullName}">Name</h2>
+          <p class="font-body-md text-body-md text-on-surface-variant">
+            Bibliotech member since <span th:text="${user.memberSince.year}">2024</span>
+          </p>
+          <p class="text-sm text-on-surface-variant" th:text="${user.email}">email@example.com</p>
+        </div>
+      </section>
+
+      <!-- Personal info form -->
+      <section class="bg-surface-container-lowest border border-secondary-container rounded p-8 shadow-sm">
+        <h3 class="font-headline-md text-headline-md text-primary mb-6 pb-4 border-b border-secondary-container">Personal Details</h3>
+        <form th:action="@{/account/profile}" method="post" th:object="${profileForm}" novalidate class="flex flex-col gap-6">
+          <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="flex flex-col gap-2">
+              <label class="font-label-sm text-label-sm text-on-surface-variant" for="firstName">First Name</label>
+              <input id="firstName" th:field="*{firstName}" type="text" required
+                     class="bg-transparent border-0 border-b border-outline-variant focus:border-primary-container focus:ring-0 px-0 py-2 font-body-md text-body-md text-primary placeholder-outline transition-colors"/>
+              <span class="text-error text-xs" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
             </div>
-<div class="hidden md:flex items-center gap-gutter">
-<a class="font-body-md text-body-md text-on-primary-container hover:text-on-primary transition-colors hover:opacity-90" href="#">Catalog</a>
-<a class="font-body-md text-body-md text-on-primary-container hover:text-on-primary transition-colors hover:opacity-90" href="#">New Arrivals</a>
-<a class="font-body-md text-body-md text-on-primary-container hover:text-on-primary transition-colors hover:opacity-90" href="#">Rare Finds</a>
-<a class="font-body-md text-body-md text-on-primary-container hover:text-on-primary transition-colors hover:opacity-90" href="#">About</a>
-</div>
-<div class="flex items-center gap-unit text-on-primary">
-<button aria-label="shopping_cart" class="p-2 hover:opacity-90 transition-all duration-200 ease-in-out">
-<span class="material-symbols-outlined">shopping_cart</span>
-</button>
-<button aria-label="account_circle" class="p-2 hover:opacity-90 transition-all duration-200 ease-in-out">
-<span class="material-symbols-outlined text-on-tertiary-fixed-variant" style="font-variation-settings: 'FILL' 1;">account_circle</span>
-</button>
-</div>
-</div>
-</nav>
-<!-- Main Content Canvas -->
-<main class="flex-grow w-full max-w-container-max mx-auto px-margin-desktop py-12 flex flex-col md:flex-row gap-gutter">
-<!-- Sidebar Navigation (Contextual to Account) -->
-<aside class="w-full md:w-64 flex-shrink-0 flex flex-col gap-unit">
-<div class="pb-6">
-<h1 class="font-headline-lg text-headline-lg text-primary">Account</h1>
-</div>
-<a class="font-label-sm text-label-sm text-on-tertiary-container bg-surface-container-high rounded-DEFAULT px-4 py-3 flex items-center gap-3" href="#">
-<span class="material-symbols-outlined">manage_accounts</span>
-                Edit Profile
-            </a>
-<a class="font-label-sm text-label-sm text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-DEFAULT px-4 py-3 flex items-center gap-3" href="#">
-<span class="material-symbols-outlined">receipt_long</span>
-                Order History
-            </a>
-<a class="font-label-sm text-label-sm text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-DEFAULT px-4 py-3 flex items-center gap-3" href="#">
-<span class="material-symbols-outlined">favorite</span>
-                Wishlist
-            </a>
-<a class="font-label-sm text-label-sm text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-DEFAULT px-4 py-3 flex items-center gap-3 mt-8" href="#">
-<span class="material-symbols-outlined">logout</span>
-                Sign Out
-            </a>
-</aside>
-<!-- Edit Form Canvas -->
-<div class="flex-grow flex flex-col gap-12">
-<!-- Profile Overview / Picture Edit -->
-<section class="bg-surface-container-lowest border border-secondary-container rounded-DEFAULT p-8 flex flex-col sm:flex-row items-center sm:items-start gap-8 shadow-[0_4px_20px_rgba(19,27,46,0.04)]">
-<div class="relative group cursor-pointer">
-<div class="w-32 h-32 rounded-full overflow-hidden border-2 border-secondary-container">
-<img alt="Profile Picture" class="w-full h-full object-cover" data-alt="A softly lit, close-up portrait of an intellectual individual sitting in a minimalist, sun-drenched reading room. The aesthetic is bright and warm, featuring soft cream tones and deep navy accents in the background architecture. The lighting is natural and flattering, creating a sophisticated, premium mood suitable for a high-end literature platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDldZU_Evw7VsoyVQbiGDr243TpeitEZ8ixBGmfeJtq8tZlNPL4CrRaoKZ0Bz50Rb1g2dfsMrTDA3bhjKkFR09RgBgeVqFu9PM15K6Y5W0DLSxC7LWsd-35rf9Nf3ppfDUwyY7QpLNWffyoADhzK1J65cQjEXe8BO25xCeGgy5taEpEPymegllQXhahw4PgluVbaew0DPD7Kv0PnYZSPxSe2H3q1CtCql8wuhcQ1MW-suTj28SjdL55d9eaCDUz5gJmqeV3AuZNMaU"/>
-</div>
-<div class="absolute inset-0 bg-primary/40 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-<span class="material-symbols-outlined text-on-primary">photo_camera</span>
-</div>
-</div>
-<div class="flex flex-col flex-grow text-center sm:text-left justify-center h-32">
-<h2 class="font-headline-md text-headline-md text-primary mb-1">Eleanor Vance</h2>
-<p class="font-body-md text-body-md text-on-surface-variant mb-4">Bibliophile since 2021</p>
-<div>
-<button class="font-label-sm text-label-sm text-primary border border-outline-variant px-4 py-2 rounded-DEFAULT hover:bg-surface-container-high transition-colors">
-                            Change Photo
-                        </button>
-</div>
-</div>
-</section>
-<!-- Personal Information Form -->
-<section class="bg-surface-container-lowest border border-secondary-container rounded-DEFAULT p-8 shadow-[0_4px_20px_rgba(19,27,46,0.04)]">
-<h3 class="font-headline-md text-headline-md text-primary mb-6 pb-4 border-b border-secondary-container">Personal Details</h3>
-<form class="flex flex-col gap-6">
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-<div class="flex flex-col gap-2">
-<label class="font-label-sm text-label-sm text-on-surface-variant" for="firstName">First Name</label>
-<input class="bg-transparent border-0 border-b border-outline-variant focus:border-primary-container focus:ring-0 px-0 py-2 font-body-md text-body-md text-primary placeholder-outline transition-colors" id="firstName" type="text" value="Eleanor"/>
-</div>
-<div class="flex flex-col gap-2">
-<label class="font-label-sm text-label-sm text-on-surface-variant" for="lastName">Last Name</label>
-<input class="bg-transparent border-0 border-b border-outline-variant focus:border-primary-container focus:ring-0 px-0 py-2 font-body-md text-body-md text-primary placeholder-outline transition-colors" id="lastName" type="text" value="Vance"/>
-</div>
-</div>
-<div class="flex flex-col gap-2">
-<label class="font-label-sm text-label-sm text-on-surface-variant" for="email">Email Address</label>
-<input class="bg-transparent border-0 border-b border-outline-variant focus:border-primary-container focus:ring-0 px-0 py-2 font-body-md text-body-md text-primary placeholder-outline transition-colors" id="email" type="email" value="eleanor.vance@example.com"/>
-</div>
-<div class="flex flex-col gap-2">
-<label class="font-label-sm text-label-sm text-on-surface-variant" for="bio">Reading Preferences (Bio)</label>
-<textarea class="bg-transparent border-0 border-b border-outline-variant focus:border-primary-container focus:ring-0 px-0 py-2 font-body-md text-body-md text-primary placeholder-outline transition-colors resize-none" id="bio" rows="3">Primarily interested in 19th-century gothic fiction and contemporary literary essays.</textarea>
-</div>
-<div class="pt-4 flex justify-end">
-<button class="bg-on-tertiary-container text-on-tertiary font-label-sm text-label-sm px-6 py-3 rounded-DEFAULT hover:opacity-90 transition-opacity" type="button">
-                            Save Changes
-                        </button>
-</div>
-</form>
-</section>
-<!-- Security Form -->
-<section class="bg-surface-container-lowest border border-secondary-container rounded-DEFAULT p-8 shadow-[0_4px_20px_rgba(19,27,46,0.04)]">
-<h3 class="font-headline-md text-headline-md text-primary mb-6 pb-4 border-b border-secondary-container">Security</h3>
-<form class="flex flex-col gap-6">
-<div class="flex flex-col gap-2">
-<label class="font-label-sm text-label-sm text-on-surface-variant" for="currentPassword">Current Password</label>
-<input class="bg-transparent border-0 border-b border-outline-variant focus:border-primary-container focus:ring-0 px-0 py-2 font-body-md text-body-md text-primary placeholder-outline transition-colors" id="currentPassword" placeholder="••••••••" type="password"/>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-<div class="flex flex-col gap-2">
-<label class="font-label-sm text-label-sm text-on-surface-variant" for="newPassword">New Password</label>
-<input class="bg-transparent border-0 border-b border-outline-variant focus:border-primary-container focus:ring-0 px-0 py-2 font-body-md text-body-md text-primary placeholder-outline transition-colors" id="newPassword" placeholder="New Password" type="password"/>
-</div>
-<div class="flex flex-col gap-2">
-<label class="font-label-sm text-label-sm text-on-surface-variant" for="confirmPassword">Confirm New Password</label>
-<input class="bg-transparent border-0 border-b border-outline-variant focus:border-primary-container focus:ring-0 px-0 py-2 font-body-md text-body-md text-primary placeholder-outline transition-colors" id="confirmPassword" placeholder="Confirm Password" type="password"/>
-</div>
-</div>
-<div class="pt-4 flex justify-end">
-<button class="border border-primary text-primary font-label-sm text-label-sm px-6 py-3 rounded-DEFAULT hover:bg-surface-container-high transition-colors" type="button">
-                            Update Password
-                        </button>
-</div>
-</form>
-</section>
-</div>
+            <div class="flex flex-col gap-2">
+              <label class="font-label-sm text-label-sm text-on-surface-variant" for="lastName">Last Name</label>
+              <input id="lastName" th:field="*{lastName}" type="text" required
+                     class="bg-transparent border-0 border-b border-outline-variant focus:border-primary-container focus:ring-0 px-0 py-2 font-body-md text-body-md text-primary placeholder-outline transition-colors"/>
+              <span class="text-error text-xs" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+            </div>
+          </div>
+          <div class="flex flex-col gap-2">
+            <label class="font-label-sm text-label-sm text-on-surface-variant" for="email">Email Address</label>
+            <input id="email" th:field="*{email}" type="email" required
+                   class="bg-transparent border-0 border-b border-outline-variant focus:border-primary-container focus:ring-0 px-0 py-2 font-body-md text-body-md text-primary placeholder-outline transition-colors"/>
+            <span class="text-error text-xs" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+          </div>
+          <div class="flex flex-col gap-2">
+            <label class="font-label-sm text-label-sm text-on-surface-variant" for="bio">Reading Preferences (Bio)</label>
+            <textarea id="bio" th:field="*{bio}" rows="3"
+                      class="bg-transparent border-0 border-b border-outline-variant focus:border-primary-container focus:ring-0 px-0 py-2 font-body-md text-body-md text-primary resize-none transition-colors"
+                      placeholder="Primarily interested in..."></textarea>
+          </div>
+          <div class="pt-2 flex justify-end">
+            <button type="submit"
+                    class="bg-on-tertiary-container text-on-tertiary font-label-sm text-label-sm px-6 py-3 rounded hover:opacity-90 transition-opacity">
+              Save Changes
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Change password form -->
+      <section class="bg-surface-container-lowest border border-secondary-container rounded p-8 shadow-sm">
+        <h3 class="font-headline-md text-headline-md text-primary mb-6 pb-4 border-b border-secondary-container">Security</h3>
+        <form th:action="@{/account/profile/password}" method="post" th:object="${passwordForm}"
+              id="pwdForm" novalidate class="flex flex-col gap-6">
+          <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+          <div class="flex flex-col gap-2">
+            <label class="font-label-sm text-label-sm text-on-surface-variant" for="currentPassword">Current Password</label>
+            <div class="relative">
+              <input id="currentPassword" th:field="*{currentPassword}" type="password"
+                     placeholder="••••••••" required
+                     class="w-full bg-transparent border-0 border-b border-outline-variant focus:border-primary-container focus:ring-0 px-0 py-2 pr-8 font-body-md text-body-md text-primary transition-colors"/>
+              <button type="button" onclick="togglePwd('currentPassword','eye0')"
+                      class="absolute right-0 bottom-2 text-on-surface-variant hover:text-on-surface">
+                <span id="eye0" class="material-symbols-outlined" style="font-size:18px">visibility_off</span>
+              </button>
+            </div>
+            <span class="text-error text-xs" th:if="${#fields.hasErrors('currentPassword')}" th:errors="*{currentPassword}"></span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="flex flex-col gap-2">
+              <label class="font-label-sm text-label-sm text-on-surface-variant" for="newPassword">New Password</label>
+              <div class="relative">
+                <input id="newPassword" th:field="*{newPassword}" type="password"
+                       placeholder="Min. 8 chars" required minlength="8"
+                       class="w-full bg-transparent border-0 border-b border-outline-variant focus:border-primary-container focus:ring-0 px-0 py-2 pr-8 font-body-md text-body-md text-primary transition-colors"/>
+                <button type="button" onclick="togglePwd('newPassword','eye1')"
+                        class="absolute right-0 bottom-2 text-on-surface-variant hover:text-on-surface">
+                  <span id="eye1" class="material-symbols-outlined" style="font-size:18px">visibility_off</span>
+                </button>
+              </div>
+              <span class="text-error text-xs" th:if="${#fields.hasErrors('newPassword')}" th:errors="*{newPassword}"></span>
+            </div>
+            <div class="flex flex-col gap-2">
+              <label class="font-label-sm text-label-sm text-on-surface-variant" for="confirmPassword">Confirm New Password</label>
+              <div class="relative">
+                <input id="confirmPassword" th:field="*{confirmPassword}" type="password"
+                       placeholder="Confirm" required
+                       class="w-full bg-transparent border-0 border-b border-outline-variant focus:border-primary-container focus:ring-0 px-0 py-2 pr-8 font-body-md text-body-md text-primary transition-colors"/>
+                <button type="button" onclick="togglePwd('confirmPassword','eye2')"
+                        class="absolute right-0 bottom-2 text-on-surface-variant hover:text-on-surface">
+                  <span id="eye2" class="material-symbols-outlined" style="font-size:18px">visibility_off</span>
+                </button>
+              </div>
+              <span class="text-error text-xs" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"></span>
+              <p class="text-error text-xs hidden" id="pwdMatchErr">Passwords do not match.</p>
+            </div>
+          </div>
+
+          <div class="pt-2 flex justify-end">
+            <button type="submit"
+                    class="border border-primary text-primary font-label-sm text-label-sm px-6 py-3 rounded hover:bg-surface-container-high transition-colors">
+              Update Password
+            </button>
+          </div>
+        </form>
+      </section>
+    </div>
+  </div>
 </main>
-<!-- Footer -->
-<footer class="relative w-full bg-primary border-t border-outline-variant transition-all mt-auto">
-<div class="flex flex-col items-center justify-center py-12 px-margin-desktop gap-6 max-w-container-max mx-auto">
-<div class="font-headline-lg text-headline-lg text-on-primary">
-                The Bibliophile
-            </div>
-<div class="flex flex-wrap justify-center gap-6">
-<a class="font-body-md text-body-md text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">Terms of Service</a>
-<a class="font-body-md text-body-md text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">Privacy Policy</a>
-<a class="font-body-md text-body-md text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">Shipping Info</a>
-<a class="font-body-md text-body-md text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">Contact Us</a>
-</div>
-<div class="font-body-md text-body-md text-on-primary-container mt-4">
-                © 2024 The Bibliophile. Purveyors of Fine Literature.
-            </div>
-</div>
-</footer>
-</body></html>
+
+<th:block th:replace="~{fragments/nav :: footer}"></th:block>
+
+<script>
+  // Password show/hide toggle
+  function togglePwd(inputId, eyeId) {
+    const inp = document.getElementById(inputId);
+    const eye = document.getElementById(eyeId);
+    inp.type = inp.type === 'password' ? 'text' : 'password';
+    eye.textContent = inp.type === 'password' ? 'visibility_off' : 'visibility';
+  }
+
+  // Live confirm-password match check
+  document.getElementById('confirmPassword').addEventListener('input', function() {
+    const newPwd = document.getElementById('newPassword').value;
+    const err = document.getElementById('pwdMatchErr');
+    err.classList.toggle('hidden', !this.value || this.value === newPwd);
+  });
+
+  // Block submit if passwords don't match
+  document.getElementById('pwdForm').addEventListener('submit', function(e) {
+    const newPwd  = document.getElementById('newPassword').value;
+    const confirm = document.getElementById('confirmPassword').value;
+    if (newPwd && confirm && newPwd !== confirm) {
+      document.getElementById('pwdMatchErr').classList.remove('hidden');
+      e.preventDefault();
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html class="light" lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <title>Cart – The Bibliotech</title>
+  <th:block th:replace="~{fragments/nav :: headstyles}"></th:block>
+</head>
+<body class="bg-surface text-on-surface font-body-md antialiased min-h-screen flex flex-col">
+
+<th:block th:replace="~{fragments/nav :: topnav}"></th:block>
+
+<main class="flex-grow pt-[80px] pb-24">
+  <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop mt-12">
+
+    <h1 class="font-headline-lg text-headline-lg text-on-surface mb-8">Your Cart</h1>
+
+    <!-- Flash -->
+    <div th:if="${errorMessage}"
+         class="mb-6 bg-error-container border border-error/30 text-on-error-container px-4 py-3 rounded-xl text-sm flex items-center gap-2">
+      <span class="material-symbols-outlined" style="font-size:16px">error</span>
+      <span th:text="${errorMessage}"></span>
+    </div>
+
+    <!-- Empty cart -->
+    <div th:if="${#lists.isEmpty(cartItems)}" class="text-center py-24">
+      <span class="material-symbols-outlined text-6xl text-on-surface-variant">shopping_cart</span>
+      <p class="text-on-surface-variant mt-4 text-lg">Your cart is empty.</p>
+      <a th:href="@{/catalog}" class="mt-6 inline-block bg-primary text-on-primary px-8 py-3 rounded hover:opacity-90 transition-all font-semibold">Browse Catalog</a>
+    </div>
+
+    <!-- Cart with items -->
+    <div th:if="${!#lists.isEmpty(cartItems)}" class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+
+      <!-- Items list -->
+      <div class="lg:col-span-2 flex flex-col gap-4">
+        <div th:each="item : ${cartItems}"
+             class="flex gap-5 bg-surface-container-lowest border border-outline-variant rounded-xl p-5 shadow-sm">
+          <img th:src="${item.book.coverImageUrl != null ? item.book.coverImageUrl : 'https://placehold.co/80x112/e6eeff/45464d?text=Book'}"
+               th:alt="${item.book.title}"
+               class="w-20 h-28 object-cover rounded border border-outline-variant shrink-0"
+               onerror="this.src='https://placehold.co/80x112/e6eeff/45464d?text=Book'"/>
+          <div class="flex flex-col justify-between flex-1">
+            <div>
+              <h3 class="font-headline-md text-on-surface" th:text="${item.book.title}">Title</h3>
+              <p class="text-on-surface-variant text-sm" th:text="${item.book.author}">Author</p>
+              <p class="text-on-surface-variant text-xs mt-1" th:text="${item.book.genre}">Genre</p>
+            </div>
+            <div class="flex items-center justify-between mt-3">
+              <!-- Line price: computed server-side as double to avoid BigDecimal constructor in Thymeleaf -->
+              <span class="font-semibold text-on-surface text-lg"
+                    th:text="'$' + ${#numbers.formatDecimal(item.book.price.doubleValue() * item.quantity, 1, 2)}">$0.00</span>
+              <div class="flex items-center gap-3">
+                <span class="text-sm text-on-surface-variant">Qty: <b th:text="${item.quantity}">1</b></span>
+                <!-- unit price -->
+                <span class="text-xs text-on-surface-variant" th:text="'@$' + ${item.book.price}"></span>
+                <form th:action="@{/cart/remove}" method="post">
+                  <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                  <input type="hidden" name="bookId" th:value="${item.book.id}"/>
+                  <button type="submit" title="Remove item"
+                          class="text-error hover:bg-error-container p-1.5 rounded-full transition-colors">
+                    <span class="material-symbols-outlined" style="font-size:18px">delete</span>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Continue shopping link -->
+        <a th:href="@{/catalog}"
+           class="flex items-center gap-1 text-on-surface-variant hover:text-on-surface transition-colors text-sm mt-2">
+          <span class="material-symbols-outlined" style="font-size:16px">arrow_back</span>
+          Continue Shopping
+        </a>
+      </div>
+
+      <!-- Order summary sidebar -->
+      <div class="lg:col-span-1">
+        <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm sticky top-24">
+          <h2 class="font-headline-md text-on-surface mb-6">Order Summary</h2>
+
+          <div class="flex justify-between text-on-surface-variant mb-2 text-sm">
+            <span>Subtotal</span>
+            <span id="subtotalDisplay" th:text="'$' + ${#numbers.formatDecimal(cartTotal, 1, 2)}">$0.00</span>
+          </div>
+          <div class="flex justify-between text-on-surface-variant mb-2 text-sm">
+            <span>Shipping</span>
+            <span id="shippingDisplay">$4.99</span>
+          </div>
+          <div class="border-t border-outline-variant my-4"></div>
+          <div class="flex justify-between font-bold text-on-surface text-lg mb-6">
+            <span>Total</span>
+            <span id="totalDisplay">$0.00</span>
+          </div>
+
+          <!-- Checkout form -->
+          <form th:action="@{/cart/checkout}" method="post" id="checkoutForm">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+            <div class="flex flex-col gap-3 mb-5">
+
+              <label class="text-sm font-semibold text-on-surface">Shipping Method</label>
+              <select name="shippingMethod" id="shippingMethodSelect"
+                      class="border border-outline-variant rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                      onchange="updateTotal()">
+                <option value="Standard" data-cost="4.99">Standard – $4.99 (5–7 days)</option>
+                <option value="Express"  data-cost="9.99">Express – $9.99 (2–3 days)</option>
+                <option value="Overnight" data-cost="19.99">Overnight – $19.99 (next day)</option>
+              </select>
+
+              <label class="text-sm font-semibold text-on-surface">Shipping Address</label>
+              <input type="text" name="shippingAddress" required
+                     placeholder="123 Book Lane, City, Country"
+                     class="border border-outline-variant rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary"/>
+            </div>
+
+            <button type="submit"
+                    class="w-full bg-[#c86a47] text-white font-bold py-3.5 rounded-lg hover:opacity-90 transition-all shadow-md flex items-center justify-center gap-2">
+              <span class="material-symbols-outlined" style="font-size:18px">lock</span>
+              Place Order
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<th:block th:replace="~{fragments/nav :: footer}"></th:block>
+
+<script th:inline="javascript">
+  // Subtotal comes from server
+  const subtotal = /*[[${cartTotal}]]*/ 0;
+
+  function updateTotal() {
+    const sel   = document.getElementById('shippingMethodSelect');
+    const opt   = sel.options[sel.selectedIndex];
+    const ship  = parseFloat(opt.getAttribute('data-cost') || '4.99');
+    const total = subtotal + ship;
+
+    document.getElementById('shippingDisplay').textContent = '$' + ship.toFixed(2);
+    document.getElementById('totalDisplay').textContent    = '$' + total.toFixed(2);
+  }
+
+  // Run on page load to set initial total
+  updateTotal();
+</script>
+</body>
+</html>

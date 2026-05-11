@@ -1,244 +1,136 @@
 <!DOCTYPE html>
-
-<html class="light" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>The Bibliophile</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:wght@500;600&amp;family=Manrope:wght@400;600&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "on-surface-variant": "#45464d",
-                        "primary-container": "#131b2e",
-                        "surface-container-highest": "#d5e3fc",
-                        "on-primary-container": "#7c839b",
-                        "secondary": "#5e5f5d",
-                        "on-tertiary-container": "#c86a47",
-                        "on-secondary-container": "#626361",
-                        "on-secondary-fixed-variant": "#464745",
-                        "surface": "#f8f9ff",
-                        "surface-bright": "#f8f9ff",
-                        "on-secondary-fixed": "#1a1c1a",
-                        "error-container": "#ffdad6",
-                        "on-surface": "#0d1c2e",
-                        "secondary-fixed": "#e3e2e0",
-                        "inverse-on-surface": "#eaf1ff",
-                        "surface-dim": "#ccdbf3",
-                        "surface-tint": "#565e74",
-                        "tertiary": "#000000",
-                        "on-error": "#ffffff",
-                        "surface-variant": "#d5e3fc",
-                        "primary": "#000000",
-                        "on-primary": "#ffffff",
-                        "tertiary-fixed": "#ffdbcf",
-                        "on-error-container": "#93000a",
-                        "on-tertiary": "#ffffff",
-                        "secondary-container": "#e0e0dd",
-                        "primary-fixed": "#dae2fd",
-                        "on-background": "#0d1c2e",
-                        "surface-container-high": "#dce9ff",
-                        "tertiary-container": "#380d00",
-                        "background": "#f8f9ff",
-                        "surface-container-lowest": "#ffffff",
-                        "primary-fixed-dim": "#bec6e0",
-                        "tertiary-fixed-dim": "#ffb59b",
-                        "secondary-fixed-dim": "#c7c6c4",
-                        "outline-variant": "#c6c6cd",
-                        "inverse-surface": "#233144",
-                        "error": "#ba1a1a",
-                        "on-tertiary-fixed-variant": "#7a2f10",
-                        "on-primary-fixed-variant": "#3f465c",
-                        "inverse-primary": "#bec6e0",
-                        "surface-container": "#e6eeff",
-                        "on-primary-fixed": "#131b2e",
-                        "on-secondary": "#ffffff",
-                        "outline": "#76777d",
-                        "surface-container-low": "#eff4ff",
-                        "on-tertiary-fixed": "#380d00"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.125rem",
-                        "lg": "0.25rem",
-                        "xl": "0.5rem",
-                        "full": "0.75rem"
-                    },
-                    "spacing": {
-                        "gutter": "24px",
-                        "unit": "8px",
-                        "margin-mobile": "16px",
-                        "container-max": "1280px",
-                        "margin-desktop": "64px"
-                    },
-                    "fontFamily": {
-                        "headline-xl": ["Newsreader"],
-                        "headline-md": ["Newsreader"],
-                        "body-md": ["Manrope"],
-                        "body-lg": ["Manrope"],
-                        "label-sm": ["Manrope"],
-                        "headline-lg": ["Newsreader"]
-                    },
-                    "fontSize": {
-                        "headline-xl": ["48px", { "lineHeight": "1.2", "fontWeight": "600" }],
-                        "headline-md": ["24px", { "lineHeight": "1.4", "fontWeight": "500" }],
-                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
-                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
-                        "label-sm": ["13px", { "lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "600" }],
-                        "headline-lg": ["32px", { "lineHeight": "1.3", "fontWeight": "500" }]
-                    }
-                }
-            }
-        }
-    </script>
+<html class="light" lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <title>The Bibliotech – Fine Literature</title>
+  <th:block th:replace="~{fragments/nav :: headstyles}"></th:block>
 </head>
-<body class="bg-surface text-on-surface font-body-md text-body-md antialiased min-h-screen flex flex-col">
-<!-- TopNavBar -->
-<nav class="bg-primary dark:bg-primary-container text-on-primary dark:text-on-primary-container font-body-md text-body-md fixed top-0 w-full z-50 shadow-sm dark:shadow-none transition-all duration-200 ease-in-out">
-<div class="flex justify-between items-center px-margin-desktop h-16 max-w-container-max mx-auto">
-<div class="font-headline-md text-headline-md text-on-primary dark:text-on-primary-container font-bold tracking-tight">
-                The Bibliophile
+<body class="bg-surface text-on-surface font-body-md antialiased min-h-screen flex flex-col">
+
+<th:block th:replace="~{fragments/nav :: topnav}"></th:block>
+
+<main class="flex-grow pt-[64px] pb-24">
+
+  <!-- Flash message -->
+  <div th:if="${cartMessage}" class="max-w-container-max mx-auto px-margin-desktop pt-4">
+    <div class="bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-xl text-sm flex items-center gap-2">
+      <span class="material-symbols-outlined" style="font-size:16px">check_circle</span>
+      <span th:text="${cartMessage}"></span>
+    </div>
+  </div>
+
+  <!-- ── HERO: Featured Book ──────────────────────────────────────────── -->
+  <section class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop mb-24 mt-10">
+    <div class="bg-surface-container-lowest border border-secondary-fixed rounded-xl overflow-hidden shadow-[0_20px_40px_-15px_rgba(19,27,46,0.06)] relative">
+      <div class="absolute inset-0 opacity-[0.02] bg-[url('https://www.transparenttextures.com/patterns/cream-paper.png')] pointer-events-none"></div>
+      <div class="flex flex-col md:flex-row items-center gap-10 p-10 md:p-14 relative z-10">
+        <div class="w-full md:w-2/5 flex justify-center">
+          <img th:src="${featuredBook?.coverImageUrl ?: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCxsW-8tPzqIrtxxkBjYgEk3Hb02BQZ3ryufymfpbyJ3sN2PmbFNv309IAc3UKb9lyEeIM97-iO1gW1JqRTrQOVOqJTYOO9wyXJ9PzvQYOPfPTDoxJ1HRVyWsGhn25buT9ifnIWUsFeYruwmP1D14gxNVXOt8oRWwHXmuKYOBAWBzs8FvaAx3FNZb9gb8BW49lFTvuPzT3akH6GqSOaK2FQ1t7ztQcqUGaiVSM43bfciHQg4rnQh95ggxSFVJOBs4RXG9PGL5Mx4tE'}"
+               th:alt="${featuredBook?.title ?: 'Featured Book'}"
+               class="h-[420px] w-auto object-cover rounded-lg shadow-[0_10px_30px_-10px_rgba(13,28,46,0.15)] border border-secondary-fixed"/>
+        </div>
+        <div class="w-full md:w-3/5 flex flex-col items-start gap-5">
+          <span class="inline-flex items-center gap-2 bg-primary text-on-primary font-label-sm text-label-sm px-3 py-1 rounded-full uppercase tracking-wider">Book of the Month</span>
+          <h1 class="font-headline-xl text-headline-xl text-on-surface leading-tight"
+              th:text="${featuredBook?.title ?: 'The Solitude of Prime Numbers'}">Title</h1>
+          <p class="text-on-surface-variant text-sm font-semibold uppercase tracking-wider"
+             th:text="${featuredBook?.author ?: ''}">Author</p>
+          <p class="font-body-lg text-body-lg text-on-surface-variant max-w-lg leading-relaxed"
+             th:text="${featuredBook?.description ?: 'An extraordinary tale spanning centuries, weaving together the lives of two remarkable women separated by time but connected by a mysterious manuscript.'}"></p>
+          <div class="flex items-center gap-4 mt-2">
+            <span class="font-headline-md text-headline-md text-on-surface"
+                  th:text="'$' + ${featuredBook?.price ?: '24.00'}">$24.00</span>
+            <form th:if="${featuredBook != null}" th:action="@{/cart/add}" method="post"
+                  sec:authorize="isAuthenticated()">
+              <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+              <input type="hidden" name="bookId" th:value="${featuredBook.id}"/>
+              <button type="submit"
+                      class="bg-[#c86a47] text-white font-bold px-7 py-3 rounded hover:opacity-90 transition-all shadow-[0_4px_14px_0_rgba(200,106,71,0.25)]">
+                Add to Cart
+              </button>
+            </form>
+            <a th:href="@{/catalog}"
+               class="border border-outline-variant text-on-surface font-semibold px-7 py-3 rounded hover:bg-surface-container transition-all">
+              Browse All
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── NEW ARRIVALS ──────────────────────────────────────────────────── -->
+  <section class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop mb-20">
+    <div class="flex justify-between items-end mb-7 border-b border-outline-variant pb-4">
+      <h2 class="font-headline-lg text-headline-lg text-on-surface">New Arrivals</h2>
+      <a class="text-on-surface-variant hover:text-on-surface transition-colors flex items-center gap-1 text-sm"
+         th:href="@{/new-arrivals}">
+        View all <span class="material-symbols-outlined" style="font-size:16px">arrow_forward</span>
+      </a>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-gutter">
+      <div th:each="book : ${newArrivals}" class="flex flex-col group">
+        <div class="aspect-[2/3] bg-surface-container-lowest border border-secondary-fixed rounded mb-4 overflow-hidden group-hover:shadow-[0_8px_20px_-6px_rgba(13,28,46,0.12)] transition-shadow duration-300 relative">
+          <img th:src="${book.coverImageUrl}" th:alt="${book.title}"
+               class="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-500"/>
+          <div th:if="${book.badge != null}" class="absolute top-2 left-2">
+            <span th:class="${book.badge == 'Rare Find'} ? 'bg-primary-container text-on-primary text-xs font-bold px-2 py-1 rounded' : 'bg-[#c86a47] text-white text-xs font-bold px-2 py-1 rounded'"
+                  th:text="${book.badge}">Badge</span>
+          </div>
+        </div>
+        <div class="flex flex-col gap-1 px-1">
+          <span class="text-xs text-on-surface-variant font-semibold uppercase tracking-wider" th:text="${book.genre}">Genre</span>
+          <h3 class="font-headline-md text-on-surface leading-tight" th:text="${book.title}">Title</h3>
+          <p class="text-on-surface-variant text-sm" th:text="${book.author}">Author</p>
+          <div class="flex justify-between items-center mt-2">
+            <span class="font-semibold text-on-surface" th:text="'$' + ${book.price}">$0.00</span>
+            <div class="flex items-center gap-1">
+              <!-- Wishlist -->
+              <a th:href="@{/account/wishlist}" sec:authorize="isAuthenticated()"
+                 title="Wishlist"
+                 class="text-on-surface-variant hover:text-error p-1.5 rounded-full hover:bg-surface-container-highest transition-colors">
+                <span class="material-symbols-outlined" style="font-size:20px">favorite_border</span>
+              </a>
+              <!-- Add to cart (authenticated) -->
+              <form th:action="@{/cart/add}" method="post" sec:authorize="isAuthenticated()">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <input type="hidden" name="bookId" th:value="${book.id}"/>
+                <button type="submit" title="Add to cart"
+                        class="text-on-surface-variant hover:text-[#c86a47] p-2 rounded-full hover:bg-surface-container-highest transition-colors">
+                  <span class="material-symbols-outlined" style="font-size:22px">add_shopping_cart</span>
+                </button>
+              </form>
+              <!-- Login prompt (anonymous) -->
+              <a th:href="@{/login}" sec:authorize="isAnonymous()" title="Sign in to add to cart"
+                 class="text-on-surface-variant hover:text-[#c86a47] p-2 rounded-full hover:bg-surface-container-highest transition-colors">
+                <span class="material-symbols-outlined" style="font-size:22px">add_shopping_cart</span>
+              </a>
             </div>
-<div class="hidden md:flex items-center gap-8">
-<a class="text-on-primary-container hover:text-on-primary transition-colors hover:opacity-90" href="#">Catalog</a>
-<a class="text-on-primary-container hover:text-on-primary transition-colors hover:opacity-90" href="#">New Arrivals</a>
-<a class="text-on-primary-container hover:text-on-primary transition-colors hover:opacity-90" href="#">Rare Finds</a>
-<a class="text-on-primary-container hover:text-on-primary transition-colors hover:opacity-90" href="#">About</a>
-</div>
-<div class="flex items-center gap-4">
-<button class="hover:opacity-90 transition-colors text-on-primary">
-<span class="material-symbols-outlined">shopping_cart</span>
-</button>
-<button class="hover:opacity-90 transition-colors text-on-primary">
-<span class="material-symbols-outlined">account_circle</span>
-</button>
-</div>
-</div>
-</nav>
-<!-- Main Content Canvas -->
-<main class="flex-grow pt-[80px] pb-24">
-<!-- Hero Section: Featured Book of the Month -->
-<section class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop mb-24 mt-12">
-<div class="bg-surface-container-lowest border border-secondary-fixed rounded-xl overflow-hidden shadow-[0_20px_40px_-15px_rgba(19,27,46,0.04)] relative">
-<!-- Subtle texture overlay -->
-<div class="absolute inset-0 opacity-[0.02] bg-[url('https://www.transparenttextures.com/patterns/cream-paper.png')] pointer-events-none"></div>
-<div class="flex flex-col md:flex-row items-center gap-12 p-12 relative z-10">
-<div class="w-full md:w-1/2 flex justify-center">
-<img alt="Featured Book Cover" class="h-[500px] w-auto object-cover rounded shadow-[0_10px_30px_-10px_rgba(13,28,46,0.1)] border border-secondary-fixed" data-alt="A beautifully bound hardcover book with an intricate gold-foil embossed cover resting on a clean, light cream surface. The scene is lit with soft, warm natural light casting gentle shadows, evoking a tactile, high-end literary aesthetic. The book is the clear focal point against a minimal, elegant background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxsW-8tPzqIrtxxkBjYgEk3Hb02BQZ3ryufymfpbyJ3sN2PmbFNv309IAc3UKb9lyEeIM97-iO1gW1JqRTrQOVOqJTYOO9wyXJ9PzvQYOPfPTDoxJ1HRVyWsGhn25buT9ifnIWUsFeYruwmP1D14gxNVXOt8oRWwHXmuKYOBAWBzs8FvaAx3FNZb9gb8BW49lFTvuPzT3akH6GqSOaK2FQ1t7ztQcqUGaiVSM43bfciHQg4rnQh95ggxSFVJOBs4RXG9PGL5Mx4tE"/>
-</div>
-<div class="w-full md:w-1/2 flex flex-col items-start gap-6">
-<div class="inline-flex items-center gap-2 bg-primary text-on-primary font-label-sm text-label-sm px-3 py-1 rounded-full uppercase tracking-wider">
-                            Book of the Month
-                        </div>
-<h1 class="font-headline-xl text-headline-xl text-on-surface">The Weight of Ink</h1>
-<p class="font-body-lg text-body-lg text-on-surface-variant max-w-lg">
-                            An extraordinary tale spanning centuries, weaving together the lives of two remarkable women separated by time but connected by a mysterious manuscript. A masterful exploration of history, philosophy, and the enduring power of the written word.
-                        </p>
-<div class="mt-4 flex items-center gap-4">
-<span class="font-headline-md text-headline-md text-on-surface">$28.00</span>
-<button class="bg-[#c86a47] text-white font-body-md font-bold px-8 py-3 rounded-DEFAULT hover:bg-opacity-90 transition-all shadow-[0_4px_14px_0_rgba(200,106,71,0.2)]">
-                                Add to Cart
-                            </button>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- New Arrivals Grid -->
-<section class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop mb-24">
-<div class="flex justify-between items-end mb-8 border-b border-outline-variant pb-4">
-<h2 class="font-headline-lg text-headline-lg text-on-surface">New Arrivals</h2>
-<a class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors flex items-center gap-1" href="#">
-                    View all <span class="material-symbols-outlined text-sm">arrow_forward</span>
-</a>
-</div>
-<div class="grid grid-cols-2 md:grid-cols-4 gap-gutter">
-<!-- Card 1 -->
-<div class="flex flex-col group relative">
-<div class="aspect-[2/3] w-full bg-surface-container-lowest border border-secondary-fixed rounded mb-4 overflow-hidden shadow-[0_4px_10px_-4px_rgba(13,28,46,0.05)] transition-shadow duration-300 group-hover:shadow-[0_12px_24px_-8px_rgba(13,28,46,0.1)]">
-<img alt="Book Cover" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A minimalist book cover featuring stark geometric typography and abstract shapes in muted earth tones on a soft white background. The lighting is studio-quality, highlighting the matte texture of the paper cover. The overall mood is intellectual and modern." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDf2SDJzkotCBoar7qv-Foxxuu39mKpFVJmt14gykinkCRsHQu-JhsidJyUoU_aAvH2m0pZHvobRSuRa0rFggAis9OaOeDU_f77_0e0kBXS5uLrT88LukyrWZhss1i1v9WnmazggA7Yxt0wCjJqghwDlez9NndieA5lVb9D9vA1f-gTFe8agH3_AkcJ5kD0xgpzn7S6RVXitD_VYcqZXwXtNf4OhEbtQ_2_I-lG3mrlsT4XNlfk96w8m5PfLOPqKb6uk_VS8OLyptQ"/>
-</div>
-<div class="flex flex-col gap-1 px-1">
-<h3 class="font-headline-md text-headline-md text-on-surface leading-tight text-lg">Echoes of the Past</h3>
-<p class="font-body-md text-body-md text-on-surface-variant text-sm">Elias Vance</p>
-<div class="flex justify-between items-center mt-2">
-<span class="font-body-md text-body-md font-semibold text-on-surface">$24.50</span>
-<button class="text-on-surface-variant hover:text-[#c86a47] transition-colors p-2 rounded-full hover:bg-surface-container-highest">
-<span class="material-symbols-outlined">add_shopping_cart</span>
-</button>
-</div>
-</div>
-</div>
-<!-- Card 2 -->
-<div class="flex flex-col group relative">
-<div class="aspect-[2/3] w-full bg-surface-container-lowest border border-secondary-fixed rounded mb-4 overflow-hidden shadow-[0_4px_10px_-4px_rgba(13,28,46,0.05)] transition-shadow duration-300 group-hover:shadow-[0_12px_24px_-8px_rgba(13,28,46,0.1)]">
-<img alt="Book Cover" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A contemporary literary fiction book cover with a painterly illustration of a solitary figure in a vast, moody landscape. The colors are deep navies, soft creams, and hints of terracotta. The aesthetic is sophisticated and emotive, suitable for a boutique bookstore." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDraWgbYvFswrHCpYeNMLISYkDGMvlUwdFIWiKR5TWY0vcfkbR_qtTbpf2AnmLNaYgv0S5GwegUPiRz1YmGMUyxx22lsOHGwTPk-peX6e3k7-reieUgVMRB9OIe8xlzNlQWAoHcbCHE3hY2LnYtIyXZRkuh-aPAVwg_dU7eSMBsNnoIg1NzRB9BYsE32_Av77ETBK6JqFo8XwTE_5Xs76xONG8knivfI8W_vWJkFbeycZOcVqhWID8Jzn1ZPg-3lLkarw6CPYzMiLA"/>
-</div>
-<div class="flex flex-col gap-1 px-1">
-<h3 class="font-headline-md text-headline-md text-on-surface leading-tight text-lg">The Silent Ocean</h3>
-<p class="font-body-md text-body-md text-on-surface-variant text-sm">Marina Cole</p>
-<div class="flex justify-between items-center mt-2">
-<span class="font-body-md text-body-md font-semibold text-on-surface">$22.00</span>
-<button class="text-on-surface-variant hover:text-[#c86a47] transition-colors p-2 rounded-full hover:bg-surface-container-highest">
-<span class="material-symbols-outlined">add_shopping_cart</span>
-</button>
-</div>
-</div>
-</div>
-<!-- Card 3 -->
-<div class="flex flex-col group relative">
-<div class="aspect-[2/3] w-full bg-surface-container-lowest border border-secondary-fixed rounded mb-4 overflow-hidden shadow-[0_4px_10px_-4px_rgba(13,28,46,0.05)] transition-shadow duration-300 group-hover:shadow-[0_12px_24px_-8px_rgba(13,28,46,0.1)]">
-<img alt="Book Cover" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="An elegant, vintage-inspired book cover featuring intricate botanical line art embossed in subtle metallic ink on a deep navy background. The style is classic yet refined, reflecting a timeless piece of literature in a warm, minimalist setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDe4NkR2O4vQQRv6sZJyDJGoG6hMy0LwM85Q1VRLcjSVgxYax7LOteop6y9xF-MzccKbZmJYDgiDXOHvj7omDakGhRT3VF2id_X8g5WOR2TFaXYCSeND4sYzE5E9IlBG__HROcxRp8lcB4YHMuokQIeUF6UsTiYgbpS4zaLeWWeKcmPHzsq6WP-XG8DHlORCE7d77K8Mp9aeTGfEHPJlBq-ycBeUsi8zRHJoLxIWHWRfIwansD9bNzwWvGEzOaiTfFb9t78wv1NxXc"/>
-</div>
-<div class="flex flex-col gap-1 px-1">
-<h3 class="font-headline-md text-headline-md text-on-surface leading-tight text-lg">Botany of Desire</h3>
-<p class="font-body-md text-body-md text-on-surface-variant text-sm">Julian Thorne</p>
-<div class="flex justify-between items-center mt-2">
-<span class="font-body-md text-body-md font-semibold text-on-surface">$29.99</span>
-<button class="text-on-surface-variant hover:text-[#c86a47] transition-colors p-2 rounded-full hover:bg-surface-container-highest">
-<span class="material-symbols-outlined">add_shopping_cart</span>
-</button>
-</div>
-</div>
-</div>
-<!-- Card 4 -->
-<div class="flex flex-col group relative">
-<div class="aspect-[2/3] w-full bg-surface-container-lowest border border-secondary-fixed rounded mb-4 overflow-hidden shadow-[0_4px_10px_-4px_rgba(13,28,46,0.05)] transition-shadow duration-300 group-hover:shadow-[0_12px_24px_-8px_rgba(13,28,46,0.1)]">
-<img alt="Book Cover" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A striking non-fiction book cover design utilizing bold, high-contrast typography in black and off-white. The composition is clean, architectural, and highly structured, conveying authority and intellectual rigor within a premium, minimalist design context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcno9OujRY61WQ3fCl9EBZ__q_IVGAXQub7U-2dwD1ZgyicrUN6JTCTqKhxRqLz93SD6mNjJcoDhuv4KGPX0S0YF44D7n76iOE2i8sa9qrYHqq_591diaNNEG5MGSw5g4pFfEQ5MawxUDmOuRUUPGaLYFmlFgoivFr1F5351NMMImv2Kmiv1WJbplwQRILVYbObepUG6Cs1wpkaOBdqA0FN5esYAHhTlhQBFtDfnn2a4dV-tQLT0IZVyIczOchYLQn27tJXLhvQaM"/>
-</div>
-<div class="flex flex-col gap-1 px-1">
-<h3 class="font-headline-md text-headline-md text-on-surface leading-tight text-lg">Architecture of Thought</h3>
-<p class="font-body-md text-body-md text-on-surface-variant text-sm">Dr. Aris Thorne</p>
-<div class="flex justify-between items-center mt-2">
-<span class="font-body-md text-body-md font-semibold text-on-surface">$32.00</span>
-<button class="text-on-surface-variant hover:text-[#c86a47] transition-colors p-2 rounded-full hover:bg-surface-container-highest">
-<span class="material-symbols-outlined">add_shopping_cart</span>
-</button>
-</div>
-</div>
-</div>
-</div>
-</section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── RARE FINDS TEASER ────────────────────────────────────────────── -->
+  <section class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop mb-20">
+    <div class="bg-tertiary-container rounded-xl p-10 flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden">
+      <div class="absolute inset-0 opacity-[0.03] bg-[url('https://www.transparenttextures.com/patterns/old-map.png')] pointer-events-none"></div>
+      <div class="relative z-10">
+        <p class="font-label-sm text-label-sm text-on-tertiary-container uppercase tracking-wider mb-2">Special Collection</p>
+        <h2 class="font-headline-lg text-on-primary mb-2">Rare &amp; Antiquarian Finds</h2>
+        <p class="text-on-primary-container max-w-md">First editions, signed copies and out-of-print treasures curated for the discerning collector.</p>
+      </div>
+      <a th:href="@{/rare-finds}"
+         class="relative z-10 bg-[#c86a47] text-white font-bold px-8 py-3 rounded hover:opacity-90 transition-all shrink-0 shadow-md">
+        Explore Rare Finds
+      </a>
+    </div>
+  </section>
+
 </main>
-<!-- Footer -->
-<footer class="bg-primary dark:bg-primary-container text-on-primary dark:text-on-primary-container font-body-md text-body-md relative w-full border-t border-outline-variant transition-all">
-<div class="flex flex-col items-center justify-center py-12 px-margin-desktop gap-6">
-<div class="font-headline-lg text-headline-lg text-on-primary font-bold">
-                The Bibliophile
-            </div>
-<div class="flex flex-wrap justify-center gap-6 md:gap-12">
-<a class="text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">Terms of Service</a>
-<a class="text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">Privacy Policy</a>
-<a class="text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">Shipping Info</a>
-<a class="text-on-primary-container hover:text-on-primary hover:underline transition-all" href="#">Contact Us</a>
-</div>
-<div class="text-on-primary-container text-sm mt-4">
-                © 2024 The Bibliophile. Purveyors of Fine Literature.
-            </div>
-</div>
-</footer>
-</body></html>
+
+<th:block th:replace="~{fragments/nav :: footer}"></th:block>
+</body>
+</html>

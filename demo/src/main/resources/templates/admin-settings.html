@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html class="light" lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <title>Settings – Admin Console</title>
+  <th:block th:replace="~{fragments/nav :: headstyles}"></th:block>
+</head>
+<body class="bg-surface text-on-surface font-body-md antialiased min-h-screen flex">
+
+<th:block th:replace="~{fragments/admin-sidebar :: sidebar('settings')}"></th:block>
+
+<div class="ml-64 flex-1 p-8">
+  <div class="max-w-2xl">
+
+    <h1 class="font-headline-lg text-headline-lg text-on-surface mb-2">Settings</h1>
+    <p class="text-on-surface-variant mb-8">Manage store configuration and preferences.</p>
+
+    <!-- Flash -->
+    <div th:if="${flashSuccess}" class="mb-6 bg-green-100 border border-green-300 text-green-800 px-4 py-3 rounded-xl text-sm" th:text="${flashSuccess}"></div>
+
+    <!-- Store info section -->
+    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm p-6 mb-6">
+      <h2 class="font-headline-md text-on-surface mb-5">Store Information</h2>
+      <form th:action="@{/admin/settings/store}" method="post" class="flex flex-col gap-4">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <div class="flex flex-col gap-1">
+          <label class="text-sm font-semibold text-on-surface">Store Name</label>
+          <input type="text" name="storeName" value="The Bibliotech"
+                 class="border border-outline-variant rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary"/>
+        </div>
+        <div class="flex flex-col gap-1">
+          <label class="text-sm font-semibold text-on-surface">Contact Email</label>
+          <input type="email" name="contactEmail" placeholder="contact@bibliotech.com"
+                 class="border border-outline-variant rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary"/>
+        </div>
+        <div class="flex flex-col gap-1">
+          <label class="text-sm font-semibold text-on-surface">Store Description</label>
+          <textarea name="storeDescription" rows="3"
+                    class="border border-outline-variant rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary resize-none"
+                    placeholder="Curators of fine literature..."></textarea>
+        </div>
+        <button type="submit" class="bg-primary text-on-primary font-bold px-6 py-2.5 rounded-lg hover:bg-opacity-90 transition-all self-start">
+          Save Store Info
+        </button>
+      </form>
+    </div>
+
+    <!-- Admin password -->
+    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm p-6 mb-6">
+      <h2 class="font-headline-md text-on-surface mb-5">Change Admin Password</h2>
+      <form th:action="@{/account/profile/password}" method="post" class="flex flex-col gap-4">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <div class="flex flex-col gap-1">
+          <label class="text-sm font-semibold text-on-surface">Current Password</label>
+          <input type="password" name="currentPassword" required
+                 class="border border-outline-variant rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary"/>
+        </div>
+        <div class="flex flex-col gap-1">
+          <label class="text-sm font-semibold text-on-surface">New Password</label>
+          <input type="password" name="newPassword" required minlength="8"
+                 class="border border-outline-variant rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary"/>
+        </div>
+        <div class="flex flex-col gap-1">
+          <label class="text-sm font-semibold text-on-surface">Confirm New Password</label>
+          <input type="password" name="confirmPassword" required minlength="8"
+                 class="border border-outline-variant rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary"/>
+        </div>
+        <button type="submit" class="bg-primary text-on-primary font-bold px-6 py-2.5 rounded-lg hover:bg-opacity-90 transition-all self-start">
+          Update Password
+        </button>
+      </form>
+    </div>
+
+    <!-- Database info -->
+    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm p-6">
+      <h2 class="font-headline-md text-on-surface mb-4">System Information</h2>
+      <div class="flex flex-col gap-3 text-sm">
+        <div class="flex justify-between py-2 border-b border-outline-variant">
+          <span class="text-on-surface-variant">Database</span>
+          <span class="text-on-surface font-semibold">H2 (file-based)</span>
+        </div>
+        <div class="flex justify-between py-2 border-b border-outline-variant">
+          <span class="text-on-surface-variant">Framework</span>
+          <span class="text-on-surface font-semibold">Spring Boot + JPA</span>
+        </div>
+        <div class="flex justify-between py-2 border-b border-outline-variant">
+          <span class="text-on-surface-variant">Security</span>
+          <span class="text-on-surface font-semibold">Spring Security (BCrypt)</span>
+        </div>
+        <div class="flex justify-between py-2">
+          <span class="text-on-surface-variant">H2 Console</span>
+          <a th:href="@{/h2-console}" target="_blank" class="text-primary font-semibold hover:underline">/h2-console</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html class="light" lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <title>Order Confirmed – The Bibliotech</title>
+  <th:block th:replace="~{fragments/nav :: headstyles}"></th:block>
+</head>
+<body class="bg-surface text-on-surface font-body-md antialiased min-h-screen flex flex-col">
+
+<th:block th:replace="~{fragments/nav :: topnav}"></th:block>
+
+<main class="flex-grow pt-[80px] pb-24">
+  <div class="max-w-2xl mx-auto px-margin-mobile md:px-margin-desktop mt-16 text-center">
+
+    <!-- Success icon -->
+    <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+      <span class="material-symbols-outlined text-green-600 text-5xl">check_circle</span>
+    </div>
+
+    <h1 class="font-headline-xl text-headline-xl text-on-surface mb-3">Order Confirmed!</h1>
+    <p class="text-on-surface-variant text-lg mb-2">Thank you for your purchase.</p>
+    <p class="text-on-surface-variant mb-8">
+      Your order number is
+      <span class="font-bold text-on-surface" th:text="${order.orderNumber}">BBL-XXXXXX</span>.
+    </p>
+
+    <!-- Order details card -->
+    <div class="bg-surface-container-lowest border border-secondary-fixed rounded-xl p-8 shadow-sm text-left mb-8">
+      <h2 class="font-headline-md text-on-surface mb-5">Order Details</h2>
+
+      <div th:each="item : ${order.items}" class="flex items-center gap-4 py-3 border-b border-outline-variant last:border-0">
+        <img th:src="${item.book.coverImageUrl}" th:alt="${item.book.title}"
+             class="w-14 h-20 object-cover rounded border border-secondary-fixed shrink-0"/>
+        <div class="flex-1">
+          <p class="font-semibold text-on-surface" th:text="${item.book.title}">Title</p>
+          <p class="text-sm text-on-surface-variant" th:text="${item.book.author}">Author</p>
+          <p class="text-sm text-on-surface-variant">Qty: <span th:text="${item.quantity}">1</span></p>
+        </div>
+        <span class="font-semibold text-on-surface" th:text="'$' + ${#numbers.formatDecimal(item.priceAtPurchase.multiply(new java.math.BigDecimal(item.quantity)), 1, 2)}">$0.00</span>
+      </div>
+
+      <div class="mt-4 pt-4 border-t border-outline-variant flex flex-col gap-2">
+        <div class="flex justify-between text-on-surface-variant">
+          <span>Shipping Method</span>
+          <span th:text="${order.shippingMethod}">Standard</span>
+        </div>
+        <div class="flex justify-between text-on-surface-variant">
+          <span>Shipping Address</span>
+          <span th:text="${order.shippingAddress}">Address</span>
+        </div>
+        <div class="flex justify-between font-bold text-on-surface text-lg mt-2">
+          <span>Total Paid</span>
+          <span th:text="'$' + ${#numbers.formatDecimal(order.totalAmount, 1, 2)}">$0.00</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a th:href="@{/account/orders}" class="bg-primary text-on-primary font-bold px-8 py-3 rounded hover:bg-opacity-90 transition-all">
+        View My Orders
+      </a>
+      <a th:href="@{/catalog}" class="border border-outline-variant text-on-surface font-semibold px-8 py-3 rounded hover:bg-surface-container transition-all">
+        Continue Shopping
+      </a>
+    </div>
+  </div>
+</main>
+
+<th:block th:replace="~{fragments/nav :: footer}"></th:block>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html class="light" lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <title>Privacy Policy – The Bibliotech</title>
+  <th:block th:replace="~{fragments/nav :: headstyles}"></th:block>
+</head>
+<body class="bg-surface text-on-surface font-body-md antialiased min-h-screen flex flex-col">
+
+<th:block th:replace="~{fragments/nav :: topnav}"></th:block>
+
+<main class="flex-grow pt-[80px] pb-24">
+  <div class="max-w-3xl mx-auto px-margin-mobile md:px-margin-desktop mt-14">
+
+    <div class="mb-10">
+      <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-3">Legal</p>
+      <h1 class="font-headline-xl text-headline-xl text-on-surface mb-3">Privacy Policy</h1>
+      <p class="text-on-surface-variant text-sm">Last updated: January 2025</p>
+    </div>
+
+    <div class="flex flex-col gap-10 text-on-surface-variant font-body-md leading-relaxed">
+
+      <section>
+        <h2 class="font-headline-md text-headline-md text-on-surface mb-3">1. Information We Collect</h2>
+        <p class="mb-3">When you use The Bibliotech, we collect the following types of information:</p>
+        <ul class="list-disc list-inside flex flex-col gap-2 ml-2">
+          <li><strong class="text-on-surface">Account information:</strong> name, email address, and encrypted password</li>
+          <li><strong class="text-on-surface">Order information:</strong> shipping address, order history, and transaction records</li>
+          <li><strong class="text-on-surface">Usage data:</strong> pages visited, books viewed, and cart activity</li>
+          <li><strong class="text-on-surface">Session data:</strong> login sessions and remember-me preferences</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="font-headline-md text-headline-md text-on-surface mb-3">2. How We Use Your Information</h2>
+        <p class="mb-3">We use the information we collect to:</p>
+        <ul class="list-disc list-inside flex flex-col gap-2 ml-2">
+          <li>Process and fulfill your orders</li>
+          <li>Maintain and secure your account</li>
+          <li>Send order confirmations and shipping updates</li>
+          <li>Send newsletters if you have opted in</li>
+          <li>Improve our website and services</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="font-headline-md text-headline-md text-on-surface mb-3">3. Data Security</h2>
+        <p>All passwords are encrypted using BCrypt hashing. We use HTTPS for all data transmission. We do not store full payment card details — all payment processing is handled by secure third-party providers. We retain your data only as long as necessary to provide our services.</p>
+      </section>
+
+      <section>
+        <h2 class="font-headline-md text-headline-md text-on-surface mb-3">4. Cookies and Sessions</h2>
+        <p>We use session cookies to keep you logged in and remember-me cookies (valid for 30 days) if you choose that option. We do not use advertising or tracking cookies. You can delete cookies at any time through your browser settings.</p>
+      </section>
+
+      <section>
+        <h2 class="font-headline-md text-headline-md text-on-surface mb-3">5. Sharing Your Information</h2>
+        <p>We do not sell, rent, or share your personal information with third parties for marketing purposes. We may share data with shipping carriers solely for order fulfillment, and with legal authorities if required by law.</p>
+      </section>
+
+      <section>
+        <h2 class="font-headline-md text-headline-md text-on-surface mb-3">6. Your Rights</h2>
+        <p class="mb-3">You have the right to:</p>
+        <ul class="list-disc list-inside flex flex-col gap-2 ml-2">
+          <li>Access the personal data we hold about you</li>
+          <li>Correct inaccurate data via your profile page</li>
+          <li>Request deletion of your account and associated data</li>
+          <li>Opt out of newsletter communications at any time</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="font-headline-md text-headline-md text-on-surface mb-3">7. Contact</h2>
+        <p>For any privacy concerns or data requests, please <a th:href="@{/contact}" class="text-on-tertiary-container hover:underline font-semibold">contact us</a>.</p>
+      </section>
+
+    </div>
+  </div>
+</main>
+
+<th:block th:replace="~{fragments/nav :: footer}"></th:block>
+</body>
+</html>

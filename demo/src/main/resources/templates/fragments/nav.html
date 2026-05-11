@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+
+<!-- ═══════════════════════════════════════════════════════
+     HEAD STYLES — th:replace="~{fragments/nav :: headstyles}"
+     ═══════════════════════════════════════════════════════ -->
+<th:block th:fragment="headstyles">
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "on-surface-variant":       "#45464d",
+            "primary-container":        "#131b2e",
+            "surface-container-highest":"#d5e3fc",
+            "on-primary-container":     "#7c839b",
+            "secondary":                "#5e5f5d",
+            "on-tertiary-container":    "#c86a47",
+            "on-secondary-container":   "#626361",
+            "surface":                  "#f8f9ff",
+            "surface-bright":           "#f8f9ff",
+            "error-container":          "#ffdad6",
+            "on-surface":               "#0d1c2e",
+            "secondary-fixed":          "#e3e2e0",
+            "inverse-on-surface":       "#eaf1ff",
+            "surface-dim":              "#ccdbf3",
+            "on-error":                 "#ffffff",
+            "surface-variant":          "#d5e3fc",
+            "primary":                  "#000000",
+            "on-primary":               "#ffffff",
+            "tertiary-fixed":           "#ffdbcf",
+            "on-error-container":       "#93000a",
+            "on-tertiary":              "#ffffff",
+            "secondary-container":      "#e0e0dd",
+            "primary-fixed":            "#dae2fd",
+            "on-background":            "#0d1c2e",
+            "surface-container-high":   "#dce9ff",
+            "tertiary-container":       "#380d00",
+            "background":               "#f8f9ff",
+            "surface-container-lowest": "#ffffff",
+            "primary-fixed-dim":        "#bec6e0",
+            "tertiary-fixed-dim":       "#ffb59b",
+            "secondary-fixed-dim":      "#c7c6c4",
+            "outline-variant":          "#c6c6cd",
+            "inverse-surface":          "#233144",
+            "error":                    "#ba1a1a",
+            "on-tertiary-fixed-variant":"#7a2f10",
+            "on-primary-fixed-variant": "#3f465c",
+            "inverse-primary":          "#bec6e0",
+            "surface-container":        "#e6eeff",
+            "on-primary-fixed":         "#131b2e",
+            "on-secondary":             "#ffffff",
+            "outline":                  "#76777d",
+            "surface-container-low":    "#eff4ff",
+            "on-tertiary-fixed":        "#380d00",
+            "tertiary":                 "#000000"
+          },
+          borderRadius: {
+            DEFAULT: "0.125rem", lg: "0.25rem", xl: "0.5rem", full: "0.75rem"
+          },
+          spacing: {
+            gutter: "24px", unit: "8px",
+            "margin-mobile": "16px", "container-max": "1280px", "margin-desktop": "64px"
+          },
+          fontFamily: {
+            "headline-xl": ["Newsreader","serif"],
+            "headline-md": ["Newsreader","serif"],
+            "headline-lg": ["Newsreader","serif"],
+            "body-md":     ["Manrope","sans-serif"],
+            "body-lg":     ["Manrope","sans-serif"],
+            "label-sm":    ["Manrope","sans-serif"]
+          },
+          fontSize: {
+            "headline-xl": ["48px",{lineHeight:"1.2",fontWeight:"600"}],
+            "headline-md": ["24px",{lineHeight:"1.4",fontWeight:"500"}],
+            "body-md":     ["16px",{lineHeight:"1.6",fontWeight:"400"}],
+            "body-lg":     ["18px",{lineHeight:"1.6",fontWeight:"400"}],
+            "label-sm":    ["13px",{lineHeight:"1.2",letterSpacing:"0.05em",fontWeight:"600"}],
+            "headline-lg": ["32px",{lineHeight:"1.3",fontWeight:"500"}]
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      font-size: 24px; line-height: 1; display: inline-block;
+      white-space: nowrap; word-wrap: normal; direction: ltr;
+      -webkit-font-smoothing: antialiased;
+    }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:translateY(0)} }
+    .animate-fadeIn { animation: fadeIn .15s ease-out; }
+  </style>
+</th:block>
+
+<!-- ═══════════════════════════════════════════════════════
+     TOP NAV — th:replace="~{fragments/nav :: topnav}"
+     ═══════════════════════════════════════════════════════ -->
+<nav th:fragment="topnav"
+     class="bg-primary text-on-primary font-body-md fixed top-0 w-full z-50 shadow-sm transition-all duration-200">
+  <div class="flex justify-between items-center px-margin-desktop h-16 max-w-container-max mx-auto">
+
+    <!-- Brand -->
+    <a href="/" class="font-headline-md text-headline-md text-on-primary font-bold tracking-tight">
+      The Bibliotech
+    </a>
+
+    <!-- Desktop nav links -->
+    <div class="hidden md:flex items-center gap-8">
+      <a th:href="@{/catalog}"      class="text-on-primary-container hover:text-on-primary transition-colors hover:opacity-90 text-sm font-medium">Catalog</a>
+      <a th:href="@{/new-arrivals}" class="text-on-primary-container hover:text-on-primary transition-colors hover:opacity-90 text-sm font-medium">New Arrivals</a>
+      <a th:href="@{/rare-finds}"   class="text-on-primary-container hover:text-on-primary transition-colors hover:opacity-90 text-sm font-medium">Rare Finds</a>
+      <a th:href="@{/about}"        class="text-on-primary-container hover:text-on-primary transition-colors hover:opacity-90 text-sm font-medium">About</a>
+    </div>
+
+    <!-- Icons -->
+    <div class="flex items-center gap-5">
+
+      <!-- Cart with live badge -->
+      <a th:href="@{/cart}" class="relative hover:opacity-90 transition-colors text-on-primary">
+        <span class="material-symbols-outlined">shopping_cart</span>
+        <span th:if="${cartCount != null and cartCount > 0}"
+              th:text="${cartCount}"
+              sec:authorize="isAuthenticated()"
+              class="absolute -top-1.5 -right-1.5 bg-[#c86a47] text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center leading-none"></span>
+      </a>
+
+      <!-- Profile dropdown -->
+      <div class="relative" id="profileWrapper">
+        <button id="profileBtn" onclick="toggleProfile(event)"
+                class="hover:opacity-90 transition-colors text-on-primary focus:outline-none flex items-center gap-1">
+          <!-- Anonymous -->
+          <span sec:authorize="isAnonymous()" class="material-symbols-outlined">account_circle</span>
+          <!-- Authenticated: initial avatar -->
+          <span sec:authorize="isAuthenticated()"
+                th:text="${#strings.substring(#authentication.name, 0, 1).toUpperCase()}"
+                class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-on-primary-container text-primary-container font-bold text-sm select-none">U</span>
+        </button>
+
+        <!-- Dropdown -->
+        <div id="profileDropdown"
+             class="hidden absolute right-0 mt-2 w-52 bg-white border border-outline-variant rounded-xl shadow-2xl py-2 z-50 animate-fadeIn">
+
+          <!-- ANONYMOUS users -->
+          <div sec:authorize="isAnonymous()" class="flex flex-col">
+            <a th:href="@{/login}"
+               class="flex items-center gap-3 px-4 py-3 text-on-surface hover:bg-surface-container transition-colors text-sm">
+              <span class="material-symbols-outlined text-on-surface-variant" style="font-size:18px">login</span>
+              Sign In
+            </a>
+            <a th:href="@{/register}"
+               class="flex items-center gap-3 px-4 py-3 text-on-surface hover:bg-surface-container transition-colors text-sm">
+              <span class="material-symbols-outlined text-on-surface-variant" style="font-size:18px">person_add</span>
+              Create Account
+            </a>
+          </div>
+
+          <!-- AUTHENTICATED users -->
+          <div sec:authorize="isAuthenticated()" class="flex flex-col">
+            <div class="px-4 py-2 border-b border-outline-variant">
+              <p class="text-[11px] text-on-surface-variant font-semibold uppercase tracking-wider">My Account</p>
+            </div>
+            <a th:href="@{/account/profile}"
+               class="flex items-center gap-3 px-4 py-3 text-on-surface hover:bg-surface-container transition-colors text-sm">
+              <span class="material-symbols-outlined text-on-surface-variant" style="font-size:18px">manage_accounts</span>
+              Edit Profile
+            </a>
+            <a th:href="@{/account/orders}"
+               class="flex items-center gap-3 px-4 py-3 text-on-surface hover:bg-surface-container transition-colors text-sm">
+              <span class="material-symbols-outlined text-on-surface-variant" style="font-size:18px">receipt_long</span>
+              My Orders
+            </a>
+            <a th:href="@{/account/wishlist}"
+               class="flex items-center gap-3 px-4 py-3 text-on-surface hover:bg-surface-container transition-colors text-sm">
+              <span class="material-symbols-outlined text-on-surface-variant" style="font-size:18px">favorite</span>
+              Wishlist
+            </a>
+            <!-- Admin link -->
+            <div sec:authorize="hasRole('ADMIN')" class="border-t border-outline-variant">
+              <a th:href="@{/admin/dashboard}"
+                 class="flex items-center gap-3 px-4 py-3 text-on-surface hover:bg-surface-container transition-colors text-sm">
+                <span class="material-symbols-outlined text-on-surface-variant" style="font-size:18px">admin_panel_settings</span>
+                Admin Console
+              </a>
+            </div>
+            <!-- Sign out -->
+            <div class="border-t border-outline-variant">
+              <form th:action="@{/logout}" method="post">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <button type="submit"
+                        class="w-full flex items-center gap-3 px-4 py-3 text-error hover:bg-error-container transition-colors text-sm">
+                  <span class="material-symbols-outlined" style="font-size:18px">logout</span>
+                  Sign Out
+                </button>
+              </form>
+            </div>
+          </div>
+        </div><!-- /dropdown -->
+      </div><!-- /profile wrapper -->
+
+    </div><!-- /icons -->
+  </div><!-- /nav inner -->
+
+  <script>
+    function toggleProfile(e) {
+      e.stopPropagation();
+      document.getElementById('profileDropdown').classList.toggle('hidden');
+    }
+    document.addEventListener('click', function() {
+      document.getElementById('profileDropdown').classList.add('hidden');
+    });
+  </script>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════
+     FOOTER — th:replace="~{fragments/nav :: footer}"
+     ═══════════════════════════════════════════════════════ -->
+<footer th:fragment="footer"
+        class="bg-primary text-on-primary font-body-md relative w-full border-t border-outline-variant">
+  <div class="flex flex-col items-center justify-center py-12 px-margin-desktop gap-6 max-w-container-max mx-auto">
+    <div class="font-headline-lg text-headline-lg text-on-primary font-bold">The Bibliotech</div>
+    <div class="flex flex-wrap justify-center gap-6 md:gap-12">
+      <a th:href="@{/terms}"    class="text-on-primary-container hover:text-on-primary hover:underline transition-all text-sm">Terms of Service</a>
+      <a th:href="@{/privacy}"  class="text-on-primary-container hover:text-on-primary hover:underline transition-all text-sm">Privacy Policy</a>
+      <a th:href="@{/shipping}" class="text-on-primary-container hover:text-on-primary hover:underline transition-all text-sm">Shipping Info</a>
+      <a th:href="@{/contact}"  class="text-on-primary-container hover:text-on-primary hover:underline transition-all text-sm">Contact Us</a>
+    </div>
+    <p class="text-on-primary-container text-sm mt-2">© 2025 The Bibliotech. Voyagers of Fine Literature.</p>
+  </div>
+</footer>
+
+</body>
+</html>

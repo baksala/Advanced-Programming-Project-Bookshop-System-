@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+
+<aside th:fragment="sidebar(activePage)"
+       class="bg-primary-container text-on-primary-container font-body-md fixed left-0 top-0 h-full w-64 border-r border-outline-variant flex flex-col py-6 z-40">
+
+  <!-- Brand header -->
+  <div class="px-6 pb-6 mb-4 border-b border-outline-variant/20">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center">
+        <span class="material-symbols-outlined text-on-surface-variant" style="font-size:20px">admin_panel_settings</span>
+      </div>
+      <div>
+        <h1 class="font-headline-md text-on-primary-container text-base font-bold">Admin Console</h1>
+        <p class="text-xs text-on-primary-container opacity-60" sec:authentication="name">admin</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Nav links -->
+  <nav class="flex-1 overflow-y-auto w-full px-2">
+    <ul class="flex flex-col gap-1">
+
+      <li>
+        <a th:href="@{/admin/dashboard}"
+           th:classappend="${activePage == 'dashboard'} ? ' bg-tertiary-container text-on-tertiary-container' : ' text-on-primary-container hover:bg-surface-container-high'"
+           class="rounded-full px-4 py-3 flex items-center gap-3 transition-colors text-sm font-medium">
+          <span class="material-symbols-outlined" style="font-size:20px">dashboard</span>
+          Dashboard
+        </a>
+      </li>
+
+      <li>
+        <a th:href="@{/admin/inventory}"
+           th:classappend="${activePage == 'inventory'} ? ' bg-tertiary-container text-on-tertiary-container' : ' text-on-primary-container hover:bg-surface-container-high'"
+           class="rounded-full px-4 py-3 flex items-center gap-3 transition-colors text-sm font-medium">
+          <span class="material-symbols-outlined" style="font-size:20px">menu_book</span>
+          Inventory
+        </a>
+      </li>
+
+      <li>
+        <a th:href="@{/admin/books/new}"
+           th:classappend="${activePage == 'add-book'} ? ' bg-tertiary-container text-on-tertiary-container' : ' text-on-primary-container hover:bg-surface-container-high'"
+           class="rounded-full px-4 py-3 flex items-center gap-3 transition-colors text-sm font-medium">
+          <span class="material-symbols-outlined" style="font-size:20px">add_circle</span>
+          Add New Book
+        </a>
+      </li>
+
+      <li>
+        <a th:href="@{/admin/orders}"
+           th:classappend="${activePage == 'orders'} ? ' bg-tertiary-container text-on-tertiary-container' : ' text-on-primary-container hover:bg-surface-container-high'"
+           class="rounded-full px-4 py-3 flex items-center gap-3 transition-colors text-sm font-medium">
+          <span class="material-symbols-outlined" style="font-size:20px">receipt_long</span>
+          Orders
+        </a>
+      </li>
+
+      <li>
+        <a th:href="@{/admin/settings}"
+           th:classappend="${activePage == 'settings'} ? ' bg-tertiary-container text-on-tertiary-container' : ' text-on-primary-container hover:bg-surface-container-high'"
+           class="rounded-full px-4 py-3 flex items-center gap-3 transition-colors text-sm font-medium">
+          <span class="material-symbols-outlined" style="font-size:20px">settings</span>
+          Settings
+        </a>
+      </li>
+
+    </ul>
+  </nav>
+
+  <!-- Bottom actions -->
+  <div class="px-4 mt-auto flex flex-col gap-2">
+    <a th:href="@{/}"
+       class="border border-outline-variant text-on-primary-container py-2.5 rounded-full text-xs font-semibold hover:bg-surface-container-high transition-colors flex items-center justify-center gap-2">
+      <span class="material-symbols-outlined" style="font-size:16px">storefront</span>
+      View Storefront
+    </a>
+    <form th:action="@{/logout}" method="post">
+      <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+      <button type="submit"
+              class="w-full border border-outline-variant text-error py-2.5 rounded-full text-xs font-semibold hover:bg-error-container transition-colors flex items-center justify-center gap-2">
+        <span class="material-symbols-outlined" style="font-size:16px">logout</span>
+        Sign Out
+      </button>
+    </form>
+  </div>
+</aside>
+
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html class="light" lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <title>New Arrivals – The Bibliotech</title>
+  <th:block th:replace="~{fragments/nav :: headstyles}"></th:block>
+</head>
+<body class="bg-surface text-on-surface font-body-md antialiased min-h-screen flex flex-col">
+
+<th:block th:replace="~{fragments/nav :: topnav}"></th:block>
+
+<main class="flex-grow pt-[80px] pb-24">
+  <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop mt-12">
+
+    <!-- Header -->
+    <div class="mb-10">
+      <div class="flex items-center gap-2 text-on-surface-variant text-sm mb-3">
+        <a th:href="@{/}" class="hover:text-on-surface transition-colors">Home</a>
+        <span class="material-symbols-outlined text-sm">chevron_right</span>
+        <span>New Arrivals</span>
+      </div>
+      <h1 class="font-headline-xl text-headline-xl text-on-surface">New Arrivals</h1>
+      <p class="text-on-surface-variant mt-2 text-lg">Fresh titles added to our collection — be the first to read them.</p>
+    </div>
+
+    <!-- Flash -->
+    <div th:if="${cartMessage}" class="mb-6 bg-green-100 border border-green-300 text-green-800 px-4 py-3 rounded-xl text-sm" th:text="${cartMessage}"></div>
+
+    <!-- Grid -->
+    <div th:if="${!#lists.isEmpty(books)}" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-gutter">
+      <div th:each="book : ${books}" class="flex flex-col group">
+        <div class="aspect-[2/3] bg-surface-container-lowest border border-secondary-fixed rounded mb-4 overflow-hidden group-hover:shadow-lg transition-shadow relative">
+          <img th:src="${book.coverImageUrl}" th:alt="${book.title}"
+               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+          <div th:if="${book.badge}" class="absolute top-2 left-2">
+            <span class="bg-[#c86a47] text-white text-xs font-bold px-2 py-1 rounded" th:text="${book.badge}">Badge</span>
+          </div>
+        </div>
+        <div class="flex flex-col gap-1 px-1">
+          <span class="text-xs text-on-surface-variant font-semibold uppercase tracking-wider" th:text="${book.genre}">Genre</span>
+          <h3 class="font-headline-md text-on-surface leading-tight" th:text="${book.title}">Title</h3>
+          <p class="text-on-surface-variant text-sm" th:text="${book.author}">Author</p>
+          <div class="flex justify-between items-center mt-2">
+            <span class="font-semibold text-on-surface" th:text="'$' + ${book.price}">$0.00</span>
+            <form th:action="@{/cart/add}" method="post" sec:authorize="isAuthenticated()">
+              <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+              <input type="hidden" name="bookId" th:value="${book.id}"/>
+              <button type="submit" class="text-on-surface-variant hover:text-[#c86a47] p-2 rounded-full hover:bg-surface-container-highest transition-colors">
+                <span class="material-symbols-outlined">add_shopping_cart</span>
+              </button>
+            </form>
+            <a th:href="@{/login}" sec:authorize="isAnonymous()" class="text-on-surface-variant hover:text-[#c86a47] p-2 rounded-full hover:bg-surface-container-highest transition-colors">
+              <span class="material-symbols-outlined">add_shopping_cart</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty -->
+    <div th:if="${#lists.isEmpty(books)}" class="text-center py-24">
+      <span class="material-symbols-outlined text-6xl text-on-surface-variant">auto_stories</span>
+      <p class="text-on-surface-variant mt-4 text-lg">No new arrivals yet. Check back soon!</p>
+      <a th:href="@{/catalog}" class="mt-6 inline-block bg-primary text-on-primary px-8 py-3 rounded font-semibold hover:bg-opacity-90 transition-all">Browse All Books</a>
+    </div>
+  </div>
+</main>
+
+<th:block th:replace="~{fragments/nav :: footer}"></th:block>
+</body>
+</html>
